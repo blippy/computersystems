@@ -51,15 +51,15 @@ static char KeyIn;
 
 unsigned int usbKbdCheck(void)
 {
-  return KeyIn;
+	return KeyIn;
 }
 
 char usbKbdGetc(void)
 {
-  char key = KeyIn;
+	char key = KeyIn;
 
-  KeyIn = 0;
-  return key;
+	KeyIn = 0;
+	return key;
 }
 
 void oputs(char* str)
@@ -77,42 +77,42 @@ void oputchar(char c)
 void KeyPressedHandler(const char ascii)
 {
 	/*
-	char str[3];
-	str[0] = '~';
-	str[1] =ascii;
-	str[2] = 0;
-	oputs(str);
-	*/
+	   char str[3];
+	   str[0] = '~';
+	   str[1] =ascii;
+	   str[2] = 0;
+	   oputs(str);
+	   */
 	oputchar('~');
 	oputchar(ascii);
 	//oputs("KeyPressedHandler:triggered");
-  KeyIn = ascii;
+	KeyIn = ascii;
 
-  return;
-  /* If interactive console is not up yet, output to UART. */
-  if (ConsoleState.getc == NULL)
-    Uart0State.putc(ascii);
+	return;
+	/* If interactive console is not up yet, output to UART. */
+	if (ConsoleState.getc == NULL)
+		Uart0State.putc(ascii);
 }
 
 
 int UsbHostStart(char *command)
 {
-  if (!UsbUp)
-  {
-    RequestInit();
-    DeviceInit();
+	if (!UsbUp)
+	{
+		RequestInit();
+		DeviceInit();
 
-    if (!HostEnable())
-    {
-      puts("Cannot initialize USB host controller interface");
-      return TASK_FINISHED;
-    }
-    UsbUp = TRUE;
-  }
-  else
-    puts("USB host already initialized");
+		if (!HostEnable())
+		{
+			puts("Cannot initialize USB host controller interface");
+			return TASK_FINISHED;
+		}
+		UsbUp = TRUE;
+	}
+	else
+		puts("USB host already initialized");
 
-  return TASK_FINISHED;
+	return TASK_FINISHED;
 }
 
 int MyTask(void* data)
@@ -131,52 +131,53 @@ int MyTask(void* data)
 /*...................................................................*/
 int main(void)
 {
-  // Initialize hardware peripheral configuration
-  NetUp = UsbUp = ScreenUp = FALSE;
+	// Initialize hardware peripheral configuration
+	NetUp = UsbUp = ScreenUp = FALSE;
 
-  /* Initialize the base software interface to the hardware. */
-  BoardInit();
+	/* Initialize the base software interface to the hardware. */
+	BoardInit();
 
-  // Initialize the Operating System (OS) and create system tasks
-  OsInit();
+	// Initialize the Operating System (OS) and create system tasks
+	OsInit();
 
 #if 1
 #if ENABLE_UART0
-  StdioState = &Uart0State;
-  TaskNew(0, ShellPoll, &Uart0State);
+	StdioState = &Uart0State;
+	TaskNew(0, ShellPoll, &Uart0State);
 #elif ENABLE_UART1
-  StdioState = &Uart1State;
-  TaskNew(0, ShellPoll, &Uart1State);
+	StdioState = &Uart1State;
+	TaskNew(0, ShellPoll, &Uart1State);
 #endif
 #endif
 
 
-  // Initialize the timer and LED tasks
-  TaskNew(1, TimerPoll, &TimerStart); // seems needed
-  //TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
+	// Initialize the timer and LED tasks
+	TaskNew(1, TimerPoll, &TimerStart); // seems needed
+	//TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
 
-  // Initialize user devices
+	// Initialize user devices
 
-  /* Initialize screen and console. */
-  ScreenInit();
-  puts("hello 1");
+	/* Initialize screen and console. */
+	ScreenInit();
+	puts("hello 1");
 
-  /* Register video console with the OS. */
-  bzero(&ConsoleState, sizeof(ConsoleState));
-  Console(&ConsoleState);
-  // Start the USB host
-  UsbHostStart(NULL);
+	/* Register video console with the OS. */
+	bzero(&ConsoleState, sizeof(ConsoleState));
+	Console(&ConsoleState);
+	oputs("hello from game 1"); // ensure a console is initialised first
+	// Start the USB host
+	UsbHostStart(NULL);
 
-  TaskNew(1, MyTask, NULL);
+	TaskNew(1, MyTask, NULL);
 
-  /* display the introductory splash */
-  puts("Game application");
-  putu32(OgSp);
-  puts(" : stack pointer");
-  ConsoleState.puts("mcarter says hello");
+	/* display the introductory splash */
+	puts("Game application");
+	putu32(OgSp);
+	puts(" : stack pointer");
+	ConsoleState.puts("mcarter says hello");
 
-  OsStart(); //in system/os.c
+	OsStart(); //in system/os.c
 
-  puts("Goodbye"); // never reached
-  return 0;
+	puts("Goodbye"); // never reached
+	return 0;
 }
