@@ -120,8 +120,8 @@ APP     = ../../boards/rpi/app.o \
           ../../network/netif/ethernetif.o \
           denzi_data.o \
           game_grid.o \
-          virtual_world.o \
           main.o
+#          virtual_world.o \
 
 LIBS =
 
