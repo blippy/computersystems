@@ -47,8 +47,6 @@ extern int OgSp;
 
 int ScreenUp, GameUp, UsbUp, NetUp;
 
-#if ENABLE_USB_HID
-
 static char KeyIn;
 
 unsigned int usbKbdCheck(void)
@@ -73,9 +71,7 @@ void KeyPressedHandler(const char ascii)
     Uart0State.putc(ascii);
 }
 
-#endif /* ENABLE_USB_HID */
 
-#if ENABLE_USB
 int UsbHostStart(char *command)
 {
   if (!UsbUp)
@@ -96,7 +92,6 @@ int UsbHostStart(char *command)
   return TASK_FINISHED;
 }
 
-#endif /* ENABLE_USB */
 
 /*...................................................................*/
 /*        main: Application Entry Point                              */
@@ -111,7 +106,6 @@ int main(void)
   /* Initialize the base software interface to the hardware. */
   BoardInit();
 
-#if ENABLE_OS
   // Initialize the Operating System (OS) and create system tasks
   OsInit();
 
@@ -126,39 +120,33 @@ int main(void)
   // Initialize the timer and LED tasks
   TaskNew(1, TimerPoll, &TimerStart);
   TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
-#endif /* ENABLE_OS */
 
   // Initialize user devices
 
-#if ENABLE_AUTO_START
-#if ENABLE_VIDEO
   /* Initialize screen and console. */
   ScreenInit();
+  puts("hello 1");
 
   /* Register video console with the OS. */
   bzero(&ConsoleState, sizeof(ConsoleState));
   Console(&ConsoleState);
-#endif
-#if ENABLE_USB
   // Start the USB host
   UsbHostStart(NULL);
-#endif
-#endif
 
   /* display the introductory splash */
   puts("Game application");
   putu32(OgSp);
   puts(" : stack pointer");
 
-#if ENABLE_OS
+//#if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */
   OsStart();
-#elif ENABLE_SHELL
-  SystemShell();
-#else
-  puts("Press any key to exit application");
-  uart0_getc();
-#endif
+//#elif ENABLE_SHELL
+//  SystemShell();
+//#else
+//  puts("Press any key to exit application");
+//  uart0_getc();
+//#endif
 
   /* on OS exit say goodbye (never gets here...)*/
   puts("Goodbye");
