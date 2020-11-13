@@ -118,10 +118,10 @@ APP     = ../../boards/rpi/app.o \
           ../../network/core/udp.o \
           ../../network/netif/etharp.o \
           ../../network/netif/ethernetif.o \
-          denzi_data.o \
-          game_grid.o \
           main.o
 #          virtual_world.o \
+#          denzi_data.o \
+#          game_grid.o \
 
 LIBS =
 
