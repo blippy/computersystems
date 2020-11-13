@@ -62,10 +62,33 @@ char usbKbdGetc(void)
   return key;
 }
 
+void oputs(char* str)
+{
+	ConsoleState.puts(str);
+}
+
+void oputchar(char c)
+{
+	ConsoleState.putc(c);
+}
+
+
+// seems to work!
 void KeyPressedHandler(const char ascii)
 {
+	/*
+	char str[3];
+	str[0] = '~';
+	str[1] =ascii;
+	str[2] = 0;
+	oputs(str);
+	*/
+	oputchar('~');
+	oputchar(ascii);
+	//oputs("KeyPressedHandler:triggered");
   KeyIn = ascii;
 
+  return;
   /* If interactive console is not up yet, output to UART. */
   if (ConsoleState.getc == NULL)
     Uart0State.putc(ascii);
@@ -92,6 +115,14 @@ int UsbHostStart(char *command)
   return TASK_FINISHED;
 }
 
+int MyTask(void* data)
+{
+	// seems to do something
+	//ConsoleState.putc("@");
+	return TASK_READY;
+
+}
+
 
 /*...................................................................*/
 /*        main: Application Entry Point                              */
@@ -109,6 +140,7 @@ int main(void)
   // Initialize the Operating System (OS) and create system tasks
   OsInit();
 
+#if 1
 #if ENABLE_UART0
   StdioState = &Uart0State;
   TaskNew(0, ShellPoll, &Uart0State);
@@ -116,10 +148,12 @@ int main(void)
   StdioState = &Uart1State;
   TaskNew(0, ShellPoll, &Uart1State);
 #endif
+#endif
+
 
   // Initialize the timer and LED tasks
-  TaskNew(1, TimerPoll, &TimerStart);
-  TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
+  TaskNew(1, TimerPoll, &TimerStart); // seems needed
+  //TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
 
   // Initialize user devices
 
@@ -133,22 +167,16 @@ int main(void)
   // Start the USB host
   UsbHostStart(NULL);
 
+  TaskNew(1, MyTask, NULL);
+
   /* display the introductory splash */
   puts("Game application");
   putu32(OgSp);
   puts(" : stack pointer");
+  ConsoleState.puts("mcarter says hello");
 
-//#if ENABLE_OS
-  /* run the non-interruptive priority loop scheduler */
-  OsStart();
-//#elif ENABLE_SHELL
-//  SystemShell();
-//#else
-//  puts("Press any key to exit application");
-//  uart0_getc();
-//#endif
+  OsStart(); //in system/os.c
 
-  /* on OS exit say goodbye (never gets here...)*/
-  puts("Goodbye");
+  puts("Goodbye"); // never reached
   return 0;
 }
