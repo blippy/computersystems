@@ -59,7 +59,7 @@
 #define   CONSOLE_X_ORIENTATION 0   /* in number of characters */
 #define   CONSOLE_Y_ORIENTATION 10  /* in number of lines */
 #define ENABLE_USB         TRUE  /* enable USB host */
-#define ENABLE_XMODEM      TRUE  /* enable xmodem */
+#define ENABLE_XMODEM      FALSE  /* enable xmodem */
 #define ENABLE_BOOTLOADER  FALSE /* enable boot loader */
 #define   MAX_BOOT_LENGTH  (1024 * 1024 * 16) /* 16 MB boot image max */
 #define ENABLE_MALLOC      TRUE  /* enable malloc/free */
@@ -73,10 +73,8 @@
 #define ENABLE_USB_TASK    (FALSE && ENABLE_USB)/* USB intr task */
 
 /* Network configuration */
-#define ENABLE_IP4         (TRUE && \
-                            ENABLE_MALLOC && ENABLE_ETHER)
-#define ENABLE_IP6         (FALSE && \
-                            ENABLE_MALLOC && ENABLE_ETHER)
+#define ENABLE_IP4         (TRUE &&  ENABLE_MALLOC && ENABLE_ETHER)
+#define ENABLE_IP6         (FALSE && ENABLE_MALLOC && ENABLE_ETHER)
 #define ENABLE_UDP         (TRUE && (ENABLE_IP4 || ENABLE_IP4))/* UDP */
 #define ENABLE_TCP         (FALSE && (ENABLE_IP4 || ENABLE_IP4))/* TCP*/
 #define ENABLE_DHCP        (TRUE && ENABLE_UDP)/* Dynamic IP Discovery*/

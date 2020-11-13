@@ -164,7 +164,7 @@ int main(void)
 	/* Register video console with the OS. */
 	bzero(&ConsoleState, sizeof(ConsoleState));
 	Console(&ConsoleState);
-	oputs("hello from game 1"); // ensure a console is initialised first
+	oputs("hello from game 2"); // ensure a console is initialised first
 	// Start the USB host
 	UsbHostStart(NULL);
 
