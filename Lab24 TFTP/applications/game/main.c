@@ -59,41 +59,19 @@ unsigned int usbKbdCheck(void)
 char usbKbdGetc(void)
 {
 	char key = KeyIn;
-
 	KeyIn = 0;
 	return key;
-}
-
-void oputs(char* str)
-{
-	fbputs(str);
-	//ConsoleState.puts(str);
-}
-
-void oputchar(char c)
-{
-	fbputchar(c);
-	//ConsoleState.putc(c);
 }
 
 
 // seems to work!
 void KeyPressedHandler(const char ascii)
 {
-
-	/*
-	   char str[3];
-	   str[0] = '~';
-	   str[1] =ascii;
-	   str[2] = 0;
-	   oputs(str);
-	   */
 	putchar(ascii);
 	putchar(' ' );
 	//putchar(ascii);
 	putbyte(ascii);
 	puts("");
-	//oputs("KeyPressedHandler:triggered");
 	KeyIn = ascii;
 
 }
@@ -117,14 +95,6 @@ int UsbHostStart(char *command)
 		puts("USB host already initialized");
 
 	return TASK_FINISHED;
-}
-
-int MyTask(void* data)
-{
-	// seems to do something
-	//ConsoleState.putc("@");
-	return TASK_READY;
-
 }
 
 void lfb_is_stdout()
@@ -169,30 +139,12 @@ int main(void)
 
 	// Initialize the timer and LED tasks
 	TaskNew(1, TimerPoll, &TimerStart); // seems needed
-	//TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
 
-	// Initialize user devices
-
-	/* Initialize screen and console. */
 	ScreenInit();
-	puts("hello 1");
-
-	/* Register video console with the OS. */
-	//bzero(&ConsoleState, sizeof(ConsoleState));
-	//Console(&ConsoleState);
-	oputs("hello from game 2"); // ensure a console is initialised first
-	// Start the USB host
+	puts("hello from game 2"); // ensure a console is initialised first
 	UsbHostStart(NULL);
 
-	TaskNew(1, MyTask, NULL);
-
-	/* display the introductory splash */
-	puts("Game application");
-	putu32(OgSp);
-	puts(" : stack pointer");
-	//ConsoleState.puts("mcarter says hello");
-	oputs("mcarter says hello");
-	fbputs("point 1");
+	puts("mcarter says hello 1");
 
 	OsStart(); //in system/os.c
 

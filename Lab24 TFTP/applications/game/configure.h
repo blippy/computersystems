@@ -47,9 +47,9 @@
 #define ENABLE_OS          TRUE
 #define ENABLE_SHELL       TRUE
 
-#define ENABLE_UART0       TRUE  /* enable primary UART */
+#define ENABLE_UART0       FALSE  /* enable primary UART */
 #define ENABLE_UART1       FALSE /* enable secondary UART */
-#define ENABLE_JTAG        TRUE  /* enable JTAG debugging */
+#define ENABLE_JTAG        FALSE  /* enable JTAG debugging */
 #define ENABLE_VIDEO       TRUE  /* enable video console */
 #define   PIXEL_WIDTH           640 /* zero to auto-detect */
 #define   PIXEL_HEIGHT          480 /* zero to auto-detect */
@@ -62,7 +62,7 @@
 #define ENABLE_XMODEM      FALSE  /* enable xmodem */
 #define ENABLE_BOOTLOADER  FALSE /* enable boot loader */
 #define   MAX_BOOT_LENGTH  (1024 * 1024 * 16) /* 16 MB boot image max */
-#define ENABLE_MALLOC      TRUE  /* enable malloc/free */
+#define ENABLE_MALLOC      FALSE  /* enable malloc/free */
 #define ENABLE_PRINTF      TRUE  /* printf arguments */
 #define ENABLE_ASSERT      (TRUE && ENABLE_PRINTF)/*enable assertions */
 #define ENABLE_AUTO_START  TRUE /* Auto start enabled devices */
