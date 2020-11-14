@@ -71,7 +71,6 @@ APP     = ../../boards/rpi/app.o \
           ../../boards/peripherals/ethernet/lan78xx.o \
           ../../boards/peripherals/uart/16550.o \
           ../../boards/peripherals/uart/16C650.o \
-          ../../system/character.o \
           ../../system/os.o \
           ../../system/malloc.o \
           ../../system/assert.o \

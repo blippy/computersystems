@@ -80,6 +80,7 @@ void oputchar(char c)
 // seems to work!
 void KeyPressedHandler(const char ascii)
 {
+
 	/*
 	   char str[3];
 	   str[0] = '~';
@@ -87,8 +88,8 @@ void KeyPressedHandler(const char ascii)
 	   str[2] = 0;
 	   oputs(str);
 	   */
-	oputchar('~');
-	oputchar(ascii);
+	putchar('~');
+	putchar(ascii);
 	//oputs("KeyPressedHandler:triggered");
 	KeyIn = ascii;
 
@@ -147,7 +148,7 @@ int main(void)
 	lfb_init();
 	lfb_is_stdout();
 	//_putchar = &fbputchar;
-	fbputs("test of fbputs 21");
+	fbputs("test of fbputs 22");
 
 	// Initialize the Operating System (OS) and create system tasks
 	OsInit();
