@@ -304,13 +304,7 @@ void BoardInit(void)
 #endif
 #endif /* ENABLE_UART1 */
 
-#if ENABLE_MALLOC
-  MallocInit(MEM_HEAP_START, MEM_SIZE);
-#endif
 
-#if ENABLE_XMODEM
-  XmodemInit();
-#endif
 
 #if ENABLE_SHELL
   ShellInit();

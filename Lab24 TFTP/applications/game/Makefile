@@ -68,7 +68,6 @@ APP     = ../../boards/rpi/app.o \
           ../../boards/peripherals/uart/16550.o \
           ../../boards/peripherals/uart/16C650.o \
           ../../system/os.o \
-          ../../system/malloc.o \
           ../../system/assert.o \
           ../../system/printf.o \
           ../../system/rand.o \
@@ -89,11 +88,7 @@ APP     = ../../boards/rpi/app.o \
 	  $(CRUNKY)/font.psf.o \
 	  $(CRUNKY)/font.sfn.o \
           main.o
-#          virtual_world.o \
-#          denzi_data.o \
-#          game_grid.o \
-#          ../../boards/rpi/framebuffer.o \
-#          ../../system/console.o \
+#          ../../system/malloc.o \
 
 LIBS = -L$(CRUNKY)
 
