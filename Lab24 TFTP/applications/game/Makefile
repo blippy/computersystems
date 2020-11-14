@@ -48,7 +48,8 @@ ASFLAGS =
 #ASFLAGS = -mfpu=neon-vfpv4 -mfloat-abi=hard
 ##RPI B+
 #ASFLAGS = -mcpu=arm1176jzf-s
-INCLUDES = -I. -I../../include -I../../boards/rpi \
+INCLUDES = -I/$(CRUNKY) \
+	   -I. -I../../include -I../../boards/rpi \
            -I../../include/network -I../../include/network/lwip \
            -I../../include/network/ipv4 -I../../boards/rpi \
            -I../../boards/peripherals
@@ -63,7 +64,6 @@ INCLUDES = -I. -I../../include -I../../boards/rpi \
 
 APP     = ../../boards/rpi/app.o \
           ../../boards/rpi/board.o \
-          ../../boards/rpi/framebuffer.o \
           ../../boards/rpi/property.o \
           ../../boards/peripherals/dwc/host.o \
           ../../boards/peripherals/dwc/transfer.o \
@@ -78,7 +78,6 @@ APP     = ../../boards/rpi/app.o \
           ../../system/assert.o \
           ../../system/printf.o \
           ../../system/rand.o \
-          ../../system/screen.o \
           ../../system/string.o \
           ../../system/stdio.o \
           ../../system/shell.o \
@@ -118,12 +117,18 @@ APP     = ../../boards/rpi/app.o \
           ../../network/core/udp.o \
           ../../network/netif/etharp.o \
           ../../network/netif/ethernetif.o \
+          ../../system/screen.o \
+	  $(CRUNKY)/lfb.o \
+	  $(CRUNKY)/mbox.o \
+	  $(CRUNKY)/font.psf.o \
+	  $(CRUNKY)/font.sfn.o \
           main.o
 #          virtual_world.o \
 #          denzi_data.o \
 #          game_grid.o \
+#          ../../boards/rpi/framebuffer.o \
 
-LIBS =
+LIBS = -L$(CRUNKY)
 
 ##
 ## Implicit Targets

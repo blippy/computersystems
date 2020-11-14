@@ -43,6 +43,8 @@
 #include <usb/request.h>
 #include <usb/device.h>
 
+#include <lfb.h>
+
 extern int OgSp;
 
 int ScreenUp, GameUp, UsbUp, NetUp;
@@ -133,9 +135,13 @@ int main(void)
 {
 	// Initialize hardware peripheral configuration
 	NetUp = UsbUp = ScreenUp = FALSE;
+	ScreenUp = TRUE;
 
 	/* Initialize the base software interface to the hardware. */
 	BoardInit();
+
+	lfb_init();
+	fbputs("test of fbputs");
 
 	// Initialize the Operating System (OS) and create system tasks
 	OsInit();
@@ -175,6 +181,7 @@ int main(void)
 	putu32(OgSp);
 	puts(" : stack pointer");
 	ConsoleState.puts("mcarter says hello");
+	fbputs("point 1");
 
 	OsStart(); //in system/os.c
 
