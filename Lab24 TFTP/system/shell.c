@@ -66,13 +66,9 @@ extern int MouseUp(const char *command);
 #if ENABLE_NETWORK
 //extern int Echo(char *command);
 extern int NetStart(const char *command);
-extern int Tftp(const char *command);
 #endif
 
 /* local commands */
-#if ENABLE_XMODEM
-static int xmodem(const char *command);
-#endif
 #if ENABLE_VIDEO
 extern int ClearDisplay(const char *command);
 #endif
@@ -357,12 +353,6 @@ int ShellInit(void)
   ShellCommands[i].function = KeyboardUp;
   ShellCommands[++i].command = "mouse";
   ShellCommands[i].function = MouseUp;
-#endif
-#if ENABLE_NETWORK
-  ShellCommands[++i].command = "net";
-  ShellCommands[i].function = NetStart;
-  ShellCommands[++i].command = "tftp";
-  ShellCommands[i].function = Tftp;
 #endif
 #if ENABLE_VIDEO
   ShellCommands[++i].command = "screen";

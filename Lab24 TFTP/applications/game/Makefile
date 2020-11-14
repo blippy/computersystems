@@ -50,8 +50,6 @@ ASFLAGS =
 #ASFLAGS = -mcpu=arm1176jzf-s
 INCLUDES = -I/$(CRUNKY) \
 	   -I. -I../../include -I../../boards/rpi \
-           -I../../include/network -I../../include/network/lwip \
-           -I../../include/network/ipv4 -I../../boards/rpi \
            -I../../boards/peripherals
 
 ##
@@ -67,8 +65,6 @@ APP     = ../../boards/rpi/app.o \
           ../../boards/rpi/property.o \
           ../../boards/peripherals/dwc/host.o \
           ../../boards/peripherals/dwc/transfer.o \
-          ../../boards/peripherals/ethernet/lan95xx.o \
-          ../../boards/peripherals/ethernet/lan78xx.o \
           ../../boards/peripherals/uart/16550.o \
           ../../boards/peripherals/uart/16C650.o \
           ../../system/os.o \
@@ -87,33 +83,6 @@ APP     = ../../boards/rpi/app.o \
           ../../usb/mouse.o \
           ../../usb/request.o \
           ../../usb/rootport.o \
-          ../../network/core/ipv4/autoip.o \
-          ../../network/core/ipv4/icmp.o \
-          ../../network/core/ipv4/igmp.o \
-          ../../network/core/ipv4/inet.o \
-          ../../network/core/ipv4/inet_chksum.o \
-          ../../network/core/ipv4/ip.o \
-          ../../network/core/ipv4/ip_addr.o \
-          ../../network/core/ipv4/ip_frag.o \
-          ../../network/core/def.o \
-          ../../network/core/dhcp.o \
-          ../../network/core/dns.o \
-          ../../network/core/init.o \
-          ../../network/core/mem.o \
-          ../../network/core/memp.o \
-          ../../network/core/netif.o \
-          ../../network/core/pbuf.o \
-          ../../network/core/raw.o \
-          ../../network/core/stats.o \
-          ../../network/core/sys.o \
-          ../../network/core/tftp_clnt.o \
-          ../../network/core/tcp.o \
-          ../../network/core/tcp_in.o \
-          ../../network/core/tcp_out.o \
-          ../../network/core/timers.o \
-          ../../network/core/udp.o \
-          ../../network/netif/etharp.o \
-          ../../network/netif/ethernetif.o \
           ../../system/screen.o \
 	  $(CRUNKY)/lfb.o \
 	  $(CRUNKY)/mbox.o \

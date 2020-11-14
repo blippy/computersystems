@@ -94,8 +94,8 @@ extern void *KeyboardAttach(Device *keyboard);
 extern void KeyboardRelease(Device *keyboard);
 extern void *MouseAttach(Device *mouse);
 extern void MouseRelease(Device *mouse);
-extern void *LanDeviceAttach(Device *lan);
-extern void LanDeviceRelease(Device *lan);
+//extern void *LanDeviceAttach(Device *lan);
+//extern void LanDeviceRelease(Device *lan);
 
 /*...................................................................*/
 /* Static Local Functions                                            */
@@ -153,7 +153,6 @@ static Device *new_device(Device *parent)
   config = (ConfigurationHeader *)parent->configDesc;
 
   if (0) ;
-#if ENABLE_USB_HID
   else if ((config->interface.interfaceClass == 3) &&
            (config->interface.interfaceSubClass == 1) &&
            (config->interface.interfaceProtocol == 1))
@@ -168,22 +167,7 @@ static Device *new_device(Device *parent)
     result = MouseAttach(parent);
     puts("Mouse detected");
   }
-#endif /* ENABLE_USB_HID */
-#if ENABLE_ETHER && (RPI < 3)
-  else if ((parent->deviceDesc->idVendor == 0x424) &&
-           (parent->deviceDesc->idProduct == 0xEC00))
-  {
-    result = LanDeviceAttach(parent);
-    puts("Ethernet (lan95xx) detected");
-  }
-#elif ENABLE_ETHER && (RPI >= 3)
-  else if ((parent->deviceDesc->idVendor == 0x0424) &&
-           (parent->deviceDesc->idProduct == 0x7800))
-  {
-    result = LanDeviceAttach(parent);
-    puts("Ethernet (lan78xx) detected");
-  }
-#endif /* ENABLE_ETHER */
+// ethernet stuff purged
   //Check if this device is a hub
   else if (parent->deviceDesc->deviceClass == 9)
   {

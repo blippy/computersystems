@@ -148,7 +148,7 @@ int main(void)
 	lfb_init();
 	lfb_is_stdout();
 	//_putchar = &fbputchar;
-	fbputs("test of fbputs 22");
+	fbputs("test of fbputs 23");
 
 	// Initialize the Operating System (OS) and create system tasks
 	OsInit();
