@@ -123,6 +123,11 @@ int MyTask(void* data)
 
 }
 
+void lfb_is_stdout()
+{
+	extern int (*_putchar)(char);
+	_putchar = &fbputchar;
+}
 
 /*...................................................................*/
 /*        main: Application Entry Point                              */
@@ -135,11 +140,14 @@ int main(void)
 	NetUp = UsbUp = ScreenUp = FALSE;
 	ScreenUp = TRUE;
 
+	puts("this wont be printed because we havent set up stdout");
 	/* Initialize the base software interface to the hardware. */
 	BoardInit();
 
 	lfb_init();
-	fbputs("test of fbputs");
+	lfb_is_stdout();
+	//_putchar = &fbputchar;
+	fbputs("test of fbputs 21");
 
 	// Initialize the Operating System (OS) and create system tasks
 	OsInit();

@@ -42,6 +42,11 @@
 struct shell_state *StdioState;
 #endif
 
+static int nada(char c ) { return -1; } // a dummy do-nothing
+
+int (*_putchar)(char) = &nada;
+
+//putchar_t _putchar = &nada;
 /*...................................................................*/
 /* Global Function Declaractions                                     */
 /*...................................................................*/
@@ -55,34 +60,7 @@ struct shell_state *StdioState;
 /*...................................................................*/
 int putchar(char character)
 {
-#if ENABLE_OS
-  StdioState->putc(character);
-#else
-#if ENABLE_UART0
-#if ENABLE_SHELL
-  /* Display on UART0. */
-  if (Uart0State.putc)
-    Uart0State.putc(character);
-  else
-#endif
-    Uart0Putc(character);
-#endif
-#if ENABLE_UART1
-#if ENABLE_SHELL
-  /* Display on UART1. */
-  if (Uart1State.putc)
-    Uart1State.putc(character);
-  else
-#endif
-    Uart1Putc(character);
-#endif
-#if ENABLE_VIDEO
-  /* Display on video screen. */
-  if (ScreenUp)
-    ConsoleState.putc(character);
-#endif
-#endif /* ENABLE_OS */
-  return 0;
+return _putchar(character);
 }
 
 /*...................................................................*/
@@ -124,35 +102,11 @@ char getchar(void)
 /*...................................................................*/
 int puts(const char *string)
 {
-#if ENABLE_OS
-  StdioState->puts(string);
-#else
-#if ENABLE_UART0
-#if ENABLE_SHELL
-  /* Output to the UART0. */
-  if (Uart0State.puts)
-    Uart0State.puts(string);
-  else
-#endif
-    Uart0Puts(string);
-#endif
-#if ENABLE_UART1
-#if ENABLE_SHELL
-  /* Output to the UART1. */
-  if (Uart1State.puts)
-    Uart1State.puts(string);
-  else
-#endif
-    Uart1Puts(string);
-#endif
-#if ENABLE_VIDEO
-  /* Output on the video screen. */
-  if (ScreenUp)
-    ConsoleState.puts(string);
-#endif
-#endif /* ENABLE_OS */
-
-  return 0;
+int i=0;
+while(string[i]) putchar(string[i++]);
+putchar('\r');
+putchar('\n');
+return 1;
 }
 
 int atoi(char *a)
