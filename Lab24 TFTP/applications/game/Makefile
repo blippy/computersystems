@@ -81,7 +81,6 @@ APP     = ../../boards/rpi/app.o \
           ../../system/stdio.o \
           ../../system/shell.o \
           ../../system/timers.o \
-          ../../system/xmodem.o \
           ../../usb/device.o \
           ../../usb/endpoint.o \
           ../../usb/hub.o \
