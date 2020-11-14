@@ -72,7 +72,6 @@ APP     = ../../boards/rpi/app.o \
           ../../boards/peripherals/uart/16550.o \
           ../../boards/peripherals/uart/16C650.o \
           ../../system/character.o \
-          ../../system/console.o \
           ../../system/os.o \
           ../../system/malloc.o \
           ../../system/assert.o \
@@ -127,6 +126,7 @@ APP     = ../../boards/rpi/app.o \
 #          denzi_data.o \
 #          game_grid.o \
 #          ../../boards/rpi/framebuffer.o \
+#          ../../system/console.o \
 
 LIBS = -L$(CRUNKY)
 

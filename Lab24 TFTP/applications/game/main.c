@@ -66,12 +66,14 @@ char usbKbdGetc(void)
 
 void oputs(char* str)
 {
-	ConsoleState.puts(str);
+	fbputs(str);
+	//ConsoleState.puts(str);
 }
 
 void oputchar(char c)
 {
-	ConsoleState.putc(c);
+	fbputchar(c);
+	//ConsoleState.putc(c);
 }
 
 
@@ -90,10 +92,6 @@ void KeyPressedHandler(const char ascii)
 	//oputs("KeyPressedHandler:triggered");
 	KeyIn = ascii;
 
-	return;
-	/* If interactive console is not up yet, output to UART. */
-	if (ConsoleState.getc == NULL)
-		Uart0State.putc(ascii);
 }
 
 
@@ -168,8 +166,8 @@ int main(void)
 	puts("hello 1");
 
 	/* Register video console with the OS. */
-	bzero(&ConsoleState, sizeof(ConsoleState));
-	Console(&ConsoleState);
+	//bzero(&ConsoleState, sizeof(ConsoleState));
+	//Console(&ConsoleState);
 	oputs("hello from game 2"); // ensure a console is initialised first
 	// Start the USB host
 	UsbHostStart(NULL);
@@ -180,7 +178,8 @@ int main(void)
 	puts("Game application");
 	putu32(OgSp);
 	puts(" : stack pointer");
-	ConsoleState.puts("mcarter says hello");
+	//ConsoleState.puts("mcarter says hello");
+	oputs("mcarter says hello");
 	fbputs("point 1");
 
 	OsStart(); //in system/os.c

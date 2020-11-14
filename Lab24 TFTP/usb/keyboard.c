@@ -533,6 +533,7 @@ static int start_request(KeyboardDevice *keyboard)
 /*...................................................................*/
 void ConsoleEnableKeyboard(void)
 {
+#if 0
   /* Extend the console state for keyboard input. */
   ConsoleState.getc = usbKbdGetc;
   ConsoleState.check = usbKbdCheck;
@@ -542,6 +543,7 @@ void ConsoleEnableKeyboard(void)
 #if ENABLE_OS
   /* Create the task for the video console. */
   TaskNew(MAX_TASKS - 2, ShellPoll, &ConsoleState);
+#endif
 #endif
 }
 

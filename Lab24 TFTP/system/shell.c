@@ -85,7 +85,8 @@ static int rboot(const char *command);
 /* Global Variables                                                  */
 /*...................................................................*/
 static struct ShellCmd ShellCommands[MAX_SHELL_COMMANDS];
-struct shell_state Uart0State, Uart1State, ConsoleState;
+struct shell_state Uart0State, Uart1State;
+struct ConsoleState;
 
 /*...................................................................*/
 /* Local function definitions                                        */
@@ -124,7 +125,7 @@ static int screen_on(const char *command)
     ScreenInit();
 
     /* Register video console with the OS. */
-    Console(&ConsoleState);
+    //Console(&ConsoleState);
   }
   else
     puts("Screen already activated");
@@ -181,10 +182,12 @@ static int echo(const char *command)
 #endif
     Uart1Puts(command);
 #endif
+#if 0
 #if ENABLE_VIDEO
   /* Display on video screen. */
   if (ScreenUp)
     ConsoleState.puts(command);
+#endif
 #endif
   return TASK_FINISHED;
 }
