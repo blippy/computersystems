@@ -88,8 +88,11 @@ void KeyPressedHandler(const char ascii)
 	   str[2] = 0;
 	   oputs(str);
 	   */
-	putchar('~');
 	putchar(ascii);
+	putchar(' ' );
+	//putchar(ascii);
+	putbyte(ascii);
+	puts("");
 	//oputs("KeyPressedHandler:triggered");
 	KeyIn = ascii;
 
@@ -148,7 +151,7 @@ int main(void)
 	lfb_init();
 	lfb_is_stdout();
 	//_putchar = &fbputchar;
-	fbputs("test of fbputs 23");
+	fbputs("test of fbputs 24");
 
 	// Initialize the Operating System (OS) and create system tasks
 	OsInit();
