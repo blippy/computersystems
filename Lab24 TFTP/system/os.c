@@ -153,13 +153,8 @@ int TaskEnd(struct task *endingTask)
 /*...................................................................*/
 void OsInit(void)
 {
-  // Initialize system timers
   TimerInit();
-
-  // Initilize the tasks list
   TasksStart = NULL;
-
-  // Initialize system tasks
   bzero(Tasks, sizeof(struct task) * MAX_TASKS);
   TaskId = 0;
 }
@@ -220,4 +215,9 @@ void OsStart(void)
     status = OsTick();
 }
 
+#else
+void OsStart(void) {}
+struct task *TaskNew(int priority, int (*poll) (void *data),void *data)
+{ return 0; }
+void OsInit(void) {}
 #endif

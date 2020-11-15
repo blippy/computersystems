@@ -123,7 +123,7 @@ int main(void)
 
 	lfb_init();
 	lfb_is_stdout();
-	fbputs("test of fbputs 26");
+	fbputs("test of fbputs 28");
 
 	OsInit();
 

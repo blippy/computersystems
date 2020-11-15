@@ -73,7 +73,6 @@ APP     = ../../boards/rpi/app.o \
           ../../system/rand.o \
           ../../system/string.o \
           ../../system/stdio.o \
-          ../../system/shell.o \
           ../../system/timers.o \
           ../../usb/device.o \
           ../../usb/endpoint.o \
