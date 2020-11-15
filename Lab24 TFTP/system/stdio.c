@@ -70,27 +70,7 @@ return _putchar(character);
 /*...................................................................*/
 char getchar(void)
 {
-#if ENABLE_OS
-  return StdioState->getc();
-#else
-#if ENABLE_UART0
-  /* main uart */
-#if ENABLE_SHELL
-  if (Uart0State.getc)
-    return Uart0State.getc();
-  else
-#endif
-    return Uart0Getc();
-#elif ENABLE_UART1
-  /* secondary uart */
-#if ENABLE_SHELL
-  if (Uart1State.getc)
-    return Uart1State.getc();
-  else
-#endif
-    return Uart1Getc();
-#endif
-#endif /* ENABLE_OS */
+return -1; // obviously this needs to be sorted out
 }
 
 /*...................................................................*/

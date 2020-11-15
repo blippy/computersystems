@@ -45,7 +45,7 @@
 /* Configuration                                                     */
 /*...................................................................*/
 #define ENABLE_OS          TRUE
-#define ENABLE_SHELL       TRUE
+#define ENABLE_SHELL       FALSE
 
 #define ENABLE_UART0       FALSE  /* enable primary UART */
 #define ENABLE_UART1       FALSE /* enable secondary UART */

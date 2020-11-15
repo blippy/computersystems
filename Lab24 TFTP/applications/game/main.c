@@ -128,7 +128,7 @@ int main(void)
 	TaskNew(1, TimerPoll, &TimerStart); // seems needed
 
 	ScreenInit();
-	puts("hello from game 2"); // ensure a console is initialised first
+	puts("hello from game 3"); // ensure a console is initialised first
 	UsbHostStart(NULL);
 
 	puts("mcarter says hello 1");
