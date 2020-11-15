@@ -119,7 +119,7 @@ int main(void)
 	ScreenUp = TRUE;
 
 	puts("this wont be printed because we havent set up stdout");
-	BoardInit();
+	//BoardInit();
 
 	lfb_init();
 	lfb_is_stdout();
@@ -131,7 +131,7 @@ int main(void)
 	TaskNew(1, MyTask, 0);
 
 	ScreenInit();
-	puts("hello from game 7"); // ensure a console is initialised first
+	puts("hello from game 8"); // ensure a console is initialised first
 	UsbHostStart(NULL);
 
 	puts("mcarter says hello 1");

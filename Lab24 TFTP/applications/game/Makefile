@@ -82,12 +82,7 @@ APP     = ../../boards/rpi/app.o \
           ../../usb/request.o \
           ../../usb/rootport.o \
           ../../system/screen.o \
-	  $(CRUNKY)/lfb.o \
-	  $(CRUNKY)/mbox.o \
-	  $(CRUNKY)/font.psf.o \
-	  $(CRUNKY)/font.sfn.o \
           main.o
-#          ../../system/malloc.o \
 
 LIBS = -L$(CRUNKY)
 
@@ -111,7 +106,7 @@ all:	app
 
 app:	$(APP)
 	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(APPNAME).elf \
-	        $(APP) $(LIBS)
+	        $(APP) $(LIBS) -lcrunky
 	$(PLINK) $(APPNAME).elf -O binary $(APPNAME).bin
 	$(CP) $(APPNAME).bin $(KERN).img
 
