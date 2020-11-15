@@ -96,12 +96,14 @@ app:	$(APP)
 	$(LINK) -Map kernel.map -T ../../boards/rpi/memory.map -o $(APPNAME).elf \
 	        $(APP) $(LIBS)
 	$(PLINK) $(APPNAME).elf -O binary $(APPNAME).bin
-	$(CP) $(APPNAME).bin kernel.img
+	$(CP) $(APPNAME).bin kernel7.img
 
 clean:
 	rm -f $(APP)
 	rm -f $(APPNAME).bin
 	rm -f $(APPNAME).elf
-	rm -f kernel.img
+	rm -f kernel7.img
 	rm -f kernel.map
 
+install :
+	cp kernel7.img /media/pi/5794-CDC0
