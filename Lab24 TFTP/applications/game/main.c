@@ -103,6 +103,11 @@ void lfb_is_stdout()
 	_putchar = &fbputchar;
 }
 
+int MyTask(void* data)
+{
+	return TASK_IDLE;
+}
+
 /*...................................................................*/
 /*        main: Application Entry Point                              */
 /*                                                                   */
@@ -110,31 +115,38 @@ void lfb_is_stdout()
 /*...................................................................*/
 int main(void)
 {
-	// Initialize hardware peripheral configuration
 	NetUp = UsbUp = ScreenUp = FALSE;
 	ScreenUp = TRUE;
 
 	puts("this wont be printed because we havent set up stdout");
-	/* Initialize the base software interface to the hardware. */
 	BoardInit();
 
 	lfb_init();
 	lfb_is_stdout();
-	fbputs("test of fbputs 24");
+	fbputs("test of fbputs 25");
 
-	// Initialize the Operating System (OS) and create system tasks
 	OsInit();
 
 	TaskNew(1, TimerPoll, &TimerStart); // seems needed
+	TaskNew(1, MyTask, 0);
 
 	ScreenInit();
-	puts("hello from game 3"); // ensure a console is initialised first
+	puts("hello from game 7"); // ensure a console is initialised first
 	UsbHostStart(NULL);
 
 	puts("mcarter says hello 1");
+	puts("I will echo your input");
 
 	OsStart(); //in system/os.c
 
+#if 0
+	while(1) {
+		char c = usbKbdGetc();
+		if(c) putchar(c);
+	}
+#endif
+
 	puts("Goodbye"); // never reached
+	while(1);
 	return 0;
 }
