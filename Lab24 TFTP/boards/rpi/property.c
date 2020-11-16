@@ -36,7 +36,8 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /*...................................................................*/
 #include <system.h>
-#include <board.h>
+//#include <board.h>
+#include <basal.h>
 #include <string.h>
 #include <stdio.h>
 

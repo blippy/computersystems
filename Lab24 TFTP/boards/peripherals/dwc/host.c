@@ -53,7 +53,8 @@
 /*...................................................................*/
 #include <system.h>
 #if ENABLE_USB
-#include <board.h>
+//#include <board.h>
+#include <basal.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>

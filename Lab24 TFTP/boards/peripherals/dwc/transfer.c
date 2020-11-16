@@ -51,7 +51,7 @@
 /* Additional thanks to the Raspberry Pi bare metal forum community. */
 /* https://www.raspberrypi.org/forums/viewforum.php?f=72             */
 /*...................................................................*/
-#include <board.h>
+//#include <board.h>
 #include <stdio.h>
 #include <assert.h>
 #if ENABLE_USB

@@ -40,6 +40,7 @@
 
 #include <system.h>
 
+
 u32 rand(void);
 void srand(u32 seed);
 

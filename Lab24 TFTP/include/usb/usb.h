@@ -54,7 +54,8 @@
 #ifndef _USB_H
 #define _USB_H
 
-#include <board.h>
+//#include <board.h>
+#include <basal.h>
 
 /*...................................................................*/
 /* Symbol Definitions                                                */
@@ -184,5 +185,8 @@ typedef struct
   u8 maxPacketSize2;
   u8 interval;
 } __attribute__((packed)) EndpointDescriptor;
+
+int SetUsbPowerStateOn(void);
+int SetUsbPowerStateOff(void);
 
 #endif /* _USB_H */

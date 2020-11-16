@@ -52,7 +52,8 @@
 /* https://www.raspberrypi.org/forums/viewforum.php?f=72             */
 /*...................................................................*/
 #include <assert.h>
-#include <board.h>
+//#include <board.h>
+#include <basal.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <usb/request.h>

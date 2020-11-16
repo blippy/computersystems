@@ -36,9 +36,19 @@
 /* POSSIBILITY OF SUCH DAMAGE.                                       */
 /*...................................................................*/
 #include <system.h>
-#include <board.h>
+//#include <board.h>
+#include <basal.h>
 #include <stdio.h>
 #include <string.h>
+
+/*
+ * Timer registers
+*/
+#define TIMER_BASE      (PERIPHERAL_BASE | 0x003000)
+#define TIMER_CS        (TIMER_BASE | 0x00) // clock status
+#define TIMER_CLO       (TIMER_BASE | 0x04) // clock low 32 bytes
+#define TIMER_CHI       (TIMER_BASE | 0x08) // clock high 32 bytes
+#define T1_CLOCK_SECOND MICROS_PER_SECOND /* RPi is microseconds */
 
 /*...................................................................*/
 /* Symbol Definitions                                                */
@@ -247,4 +257,158 @@ void usleep(u64 microseconds)
   for (;TimerRemaining(&tw) > 0;)
     ; // Do nothing
 }
+
+#if USE_64BIT_HW_CLOCK
+/*...................................................................*/
+/* TimerRegister: Register an expiration time                        */
+/*                                                                   */
+/*      Input: microseconds until timer expires                      */
+/*                                                                   */
+/*    Returns: resulting expiration time                             */
+/*...................................................................*/
+struct timer TimerRegister(u64 microseconds)
+{
+  struct timer tw;
+  u64 now;
+
+  /* Retrieve the current time from the 1MHZ hardware clock. */
+  now = REG32(TIMER_CLO);  /* low order time */
+  now |= ((u64)REG32(TIMER_CHI) << 32); /* high order time */
+
+  /* Calculate and return the expiration time of the new timer. */
+  tw.expire = now + microseconds;
+
+  /* Return the created timer. */
+  return tw;
+}
+
+/*...................................................................*/
+/* TimerRemaining: Check if a registered timer has expired           */
+/*                                                                   */
+/*      Input: expire - clock time of expiration in microseconds     */
+/*             unused - unused on RPi as it has 64 bit precision     */
+/*                                                                   */
+/*    Returns: Zero (0) or microseconds until timer expiration       */
+/*...................................................................*/
+u64 TimerRemaining(struct timer *tw)
+{
+  u64 now;
+
+  /* Retrieve the current time from the 1MHZ hardware clock. */
+  now = REG32(TIMER_CLO); /* low order time */
+  now |= ((u64)REG32(TIMER_CHI) << 32); /* high order time */
+
+  /* Return zero if timer expired. */
+  if (now > tw->expire)
+    return 0;
+
+  /* Return time until expiration if not expired. */
+  return tw->expire - now;
+}
+
+/*.....................................................................*/
+/*   TimerNow: Return the current time in clock ticks                  */
+/*                                                                     */
+/*.....................................................................*/
+u64 TimerNow(void)
+{
+  u64 now;
+
+  /* Retrieve the current time from the 1MHZ hardware clock. */
+  now = REG32(TIMER_CLO); /* low order time */
+  now |= ((u64)REG32(TIMER_CHI) << 32); /* high order time */
+
+  /*
+  ** Return the current time.
+  */
+  return now;
+}
+
+#else
+/*...................................................................*/
+/* TimerRegister: Register an expiration time                        */
+/*                                                                   */
+/*      Input: microseconds until timer expires                      */
+/*                                                                   */
+/*    Returns: resulting timer structure                             */
+/*...................................................................*/
+struct timer TimerRegister(u64 microseconds)
+{
+  struct timer tw;
+  u64 now;
+
+  /* Retrieve the current time ticks of T1_CLOCK_SECOND frequency. */
+  now = REG32(TIMER_CLO);  /* 32 bits of time */
+
+  /* Scale hardware time to microseconds by multiplying by the */
+  /* magnitude (scale) of the difference in time frequency. */
+  if (MICROS_PER_SECOND > T1_CLOCK_SECOND)
+    now *= (MICROS_PER_SECOND - T1_CLOCK_SECOND);
+
+  /* Calculate and return the expiration time of the new timer. */
+  tw.expire = now + microseconds;
+
+  /* Return the created timer. */
+  return tw;
+}
+
+/*...................................................................*/
+/* TimerRemaining: Check if a registered timer has expired           */
+/*                                                                   */
+/*     Inputs: expire - clock time of expiration in microseconds     */
+/*               last - the last time this function was called       */
+/*                                                                   */
+/*    Returns: Zero (0) or current time if unexpired                 */
+/*...................................................................*/
+u64 TimerRemaining(struct timer *tw)
+{
+  u64 now;
+
+  /* Retrieve the current time from the 1MHZ hardware clock. */
+  now = REG32(TIMER_CLO); /* 32 bits of time */
+
+  /* Scale hardware time to microseconds by multiplying by the */
+  /* magnitude (scale) of the difference in time frequency. */
+  if (MICROS_PER_SECOND > T1_CLOCK_SECOND)
+    now *= (MICROS_PER_SECOND - T1_CLOCK_SECOND);
+
+  /* If low order 32 bits of 'last' > 'now' a rollover occurred. */
+  if ((tw->last & 0xFFFFFFFF) > now)
+    now += ((u64)1 << 32);
+
+  /* Add saved high order bits from the last. */
+  now += tw->last & 0xFFFFFFFF00000000;
+
+  /* Return zero if timer expired. */
+  if (now > tw->expire)
+    return 0;
+
+  /* Return time until expiration if not expired. */
+  tw->last = now;
+  return tw->expire - now;
+}
+
+/*.....................................................................*/
+/*   TimerNow: Return the current time in clock ticks                  */
+/*                                                                     */
+/*.....................................................................*/
+u64 TimerNow(void)
+{
+  u64 now;
+
+  /* Retrieve the current time from the 1MHZ hardware clock. */
+  now = REG32(TIMER_CLO); /* low order time */
+
+  /* Scale hardware time to microseconds by multiplying by the */
+  /* magnitude (scale) of the difference in time frequency. */
+  if (MICROS_PER_SECOND > T1_CLOCK_SECOND)
+    now *= (MICROS_PER_SECOND - T1_CLOCK_SECOND);
+
+  /*
+  ** Return the current time.
+  */
+  return now;
+}
+
+#endif
 

@@ -54,7 +54,8 @@
 #include <usb/request.h>
 #include <usb/device.h>
 #include <usb/endpoint.h>
-#include <board.h>
+//#include <board.h>
+#include <basal.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>

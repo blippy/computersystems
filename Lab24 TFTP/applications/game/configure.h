@@ -44,8 +44,7 @@
 /*...................................................................*/
 /* Configuration                                                     */
 /*...................................................................*/
-//#define ENABLE_OS          TRUE // seems necessary
-#define ENABLE_OS          1
+#define ENABLE_OS          TRUE // seems necessary
 
 #define ENABLE_SHELL       FALSE
 
@@ -73,7 +72,6 @@
 #define ENABLE_USB_HID     (TRUE && ENABLE_USB) /* for keyboard/mouse */
 #define ENABLE_USB_ETHER   (TRUE && ENABLE_USB) /* enable Ethernet */
 #define ENABLE_USB_TASK    (FALSE && ENABLE_USB)/* USB intr task */
-//#define ENABLE_USB_TASK    (TRUE && ENABLE_USB)/* USB intr task */
 
 /* Network configuration */
 #define ENABLE_IP4         (TRUE &&  ENABLE_MALLOC && ENABLE_ETHER)

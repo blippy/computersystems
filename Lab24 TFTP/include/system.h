@@ -39,6 +39,8 @@
 #define _SYSTEM_H
 
 #include <configure.h>
+#include <stddef.h>
+#include <basal.h>
 
 /*...................................................................*/
 /* Configuration                                                     */
@@ -53,7 +55,7 @@
 */
 #define TRUE           1
 #define FALSE          0
-#define NULL           0
+//#define NULL           0
 
 /*
 ** Time definitions
@@ -102,6 +104,7 @@
 /*
  * Integer types
 */
+#if 0
 typedef unsigned char      u8;
 typedef unsigned short     u16;
 typedef unsigned int       u32;
@@ -112,6 +115,7 @@ typedef int                i32;
 typedef long long          i64;
 typedef unsigned long      size_t;
 typedef unsigned long      uintptr_t;
+#endif
 
 /*
  * Alternate integer types
@@ -128,6 +132,7 @@ typedef long long          s64_t;
 /*
  * Longer named integer types
 */
+#if 0
 typedef unsigned char      uint8_t;
 typedef unsigned short     uint16_t;
 typedef unsigned int       uint32_t;
@@ -136,6 +141,7 @@ typedef char               int8_t;
 typedef short              int16_t;
 typedef int                int32_t;
 typedef long long          int64_t;
+#endif
 
 #if COLOR_DEPTH_BITS == 16
   #define COLOR16(red, green, blue)   (((((u16)red) & 0x1F) << 11) | \
@@ -315,17 +321,26 @@ int  TaskEnd(struct task *endingTask);
 int HostEnable(void);
 void HostDisable(void);
 void HostSubmitAsyncRequest(void *urb, void *param, void *context);
+#if 0
 int HostEndpointTransfer(void *host, void *endpoint,
   void *buffer, unsigned bufSize, void (complete)(void *urb,
   void *param, void *context));
+#endif
 int HostEndpointControlMessage(void *hub, void *endpoint,
   u8 requestType, u8 request, u16 value, u16 index, void *data,
   u16 dataSize, void (complete)(void *urb, void *param, void *context),
   void *param);
 // Configuration
+#if 0
 int HostGetEndpointDescriptor(void *device, void *endpoint, u8 type,
   u8 index, void *buffer, unsigned bufSize, u8 requestType,
   void (complete)(void *urb, void *param, void *context), void *param);
+#else
+int HostGetEndpointDescriptor(void *host, void *endpoint, u8 type,
+            u8 index, void *buffer, u32 bufSize, u8 requestType,
+            void (complete)(void *urb, void *param, void *context),
+            void *param);
+#endif
 int HostSetEndpointAddress(void *device, void *endpoint,
               u8 deviceAddress, void (complete)(void *urb, void *param,
               void *context), void *param);

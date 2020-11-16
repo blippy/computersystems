@@ -61,12 +61,8 @@ INCLUDES = -I/$(CRUNKY) \
 #APP     = ../../boards/rpi/loader.o \
 
 APP     = ../../boards/rpi/app.o \
-          ../../boards/rpi/board.o \
-          ../../boards/rpi/property.o \
           ../../boards/peripherals/dwc/host.o \
           ../../boards/peripherals/dwc/transfer.o \
-          ../../boards/peripherals/uart/16550.o \
-          ../../boards/peripherals/uart/16C650.o \
           ../../system/os.o \
           ../../system/assert.o \
           ../../system/printf.o \
@@ -82,7 +78,12 @@ APP     = ../../boards/rpi/app.o \
           ../../usb/request.o \
           ../../usb/rootport.o \
           ../../system/screen.o \
+          ../../boards/rpi/property.o \
           main.o
+
+#          ../../boards/rpi/board.o \
+#          ../../boards/peripherals/uart/16550.o \
+#          ../../boards/peripherals/uart/16C650.o \
 
 LIBS = -L$(CRUNKY)
 

@@ -34,17 +34,18 @@
  */
 #include <system.h>
 #include <stdio.h>
+#include <stddef.h>
 
 #if ENABLE_PRINTF
 
-typedef unsigned long size_t;
+//typedef unsigned long size_t;
 typedef long ssize_t;
 #ifdef __64BIT__
-typedef unsigned long long uintmax_t;
-typedef long long intmax_t;
+//typedef unsigned long long uintmax_t;
+//typedef long long intmax_t;
 #else
-typedef unsigned int uintmax_t;
-typedef int intmax_t;
+//typedef unsigned int uintmax_t;
+//typedef int intmax_t;
 #endif
 typedef unsigned char u_char;
 typedef unsigned int u_int;
@@ -52,7 +53,7 @@ typedef unsigned long u_long;
 typedef unsigned short u_short;
 typedef unsigned long long u_quad_t;
 typedef long long quad_t;
-typedef long ptrdiff_t;
+//typedef long ptrdiff_t;
 #define NBBY    8               /* number of bits in a byte */
 char const hex2ascii_data[] = "0123456789abcdefghijklmnopqrstuvwxyz";
 #define hex2ascii(hex)  (hex2ascii_data[hex])
