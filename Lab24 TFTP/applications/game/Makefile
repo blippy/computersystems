@@ -1,8 +1,4 @@
-#
-# Makefile for console application
-#
-#
-#
+KERN = kernel7
 
 ##
 ## Commands:
@@ -24,7 +20,7 @@ PLINK	= arm-none-eabi-objcopy
 APPNAME = game
 
 # Define the RPI hardware version: 1 is up to B+, 2 is 2, 3 is up to 3 B+
-EXTRAS = -DRPI=1 -ffreestanding
+EXTRAS = -DRPI=3 -ffreestanding
 # Begin Historic/Depricated/Older GCC
 #RPI 3 B+
 #EXTRAS = -DRPI=3 -march=armv8-a+crc -mtune=cortex-a53 -ffreestanding
@@ -142,16 +138,16 @@ LIBS =
 all:	app
 
 app:	$(APP)
-	$(LINK) -Map kernel.map -T ../../boards/rpi/memory.map -o $(APPNAME).elf \
+	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(APPNAME).elf \
 	        $(APP) $(LIBS)
 	$(PLINK) $(APPNAME).elf -O binary $(APPNAME).bin
-	$(CP) $(APPNAME).bin kernel.img
+	$(CP) $(APPNAME).bin $(KERN).img
 
 clean:
 	rm -f $(APP)
 	rm -f $(APPNAME).bin
 	rm -f $(APPNAME).elf
-	rm -f kernel.img
-	rm -f kernel.map
+	rm -f kernel*.img
+	rm -f kernel*.map
 
 -include ../../../Blippy.mk

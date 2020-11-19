@@ -43,6 +43,8 @@
 #include <usb/request.h>
 #include <usb/device.h>
 
+extern int GameStart(const char *command);
+
 extern int OgSp;
 
 int ScreenUp, GameUp, UsbUp, NetUp;
@@ -149,6 +151,8 @@ int main(void)
   puts("Game application");
   putu32(OgSp);
   puts(" : stack pointer");
+
+  GameStart(0);
 
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */
