@@ -71,10 +71,8 @@
 #define ENABLE_USB_TASK    (FALSE && ENABLE_USB) /* USB intr task */
 
 /* Network configuration */
-#define ENABLE_IP4         (TRUE && \  /* Inet Protocol v4 */
-                            ENABLE_MALLOC && ENABLE_ETHER)
-#define ENABLE_IP6         (FALSE && \ /* Inet Protocol v6 */
-                            ENABLE_MALLOC && ENABLE_ETHER)
+#define ENABLE_IP4         (TRUE &&  ENABLE_MALLOC && ENABLE_ETHER)
+#define ENABLE_IP6         (FALSE && ENABLE_MALLOC && ENABLE_ETHER)
 #define ENABLE_UDP         (TRUE && (ENABLE_IP4 || ENABLE_IP4))/* UDP */
 #define ENABLE_TCP         (FALSE && (ENABLE_IP4 || ENABLE_IP4))/* TCP*/
 #define ENABLE_DHCP        (TRUE && ENABLE_UDP)/* Dynamic IP Discovery*/

@@ -59,6 +59,6 @@
 #define ENABLE_XMODEM      TRUE  /* enable xmodem receiver */
 #define ENABLE_BOOTLOADER  FALSE /* enable boot loader */
 #define   MAX_BOOT_LENGTH  (1024 * 1024 * 16) /* 16 MB boot image max */
-#define ENABLE_AUTO_START  FALSE /* Auto start enabled devices */
+#define ENABLE_AUTO_START  TRUE /* Auto start enabled devices */
 
 #endif /* _CONFIGURE_H */

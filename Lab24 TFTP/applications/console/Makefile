@@ -152,3 +152,4 @@ clean:
 	rm -f kernel.img
 	rm -f kernel.map
 
+-include ../../
