@@ -1,4 +1,6 @@
+SD = /media/pi/8BC8-8129
+
 flash:
-	cp kernel*.img /media/pi/5794-CDC0/kernel7.img
-	umount /media/pi/5794-CDC0
+	cp kernel7.img $(SD)
+	umount $(SD)
 

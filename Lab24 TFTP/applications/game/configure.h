@@ -65,7 +65,7 @@
 #define ENABLE_MALLOC      TRUE  /* enable malloc/free */
 #define ENABLE_PRINTF      TRUE  /* printf arguments */
 #define ENABLE_ASSERT      (TRUE && ENABLE_PRINTF)/*enable assertions */
-#define ENABLE_AUTO_START  TRUW /* Auto start enabled devices */
+#define ENABLE_AUTO_START  TRUE /* Auto start enabled devices */
 
 /* USB Specific configuration */
 #define ENABLE_USB_HID     (TRUE && ENABLE_USB) /* for keyboard/mouse */
