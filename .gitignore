@@ -2,4 +2,4 @@
 *.img
 *.elf
 *.bin
-*.map
+kernel*.map
