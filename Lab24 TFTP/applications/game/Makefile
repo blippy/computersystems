@@ -117,5 +117,6 @@ clean:
 	rm -f $(KERN).img
 	rm -f $(KERN).map
 
-install:
+flash:
 	cp $(KERN).img /media/pi/5794-CDC0
+	umount /media/pi/5794-CDC0
