@@ -39,8 +39,7 @@
 #define _CONFIGURE_H
 
 // Application configuration
-//#define ENABLE_GAME        (TRUE && ENABLE_VIDEO)
-#define ENABLE_GAME	TRUE
+#define ENABLE_GAME        (TRUE && ENABLE_VIDEO)
 
 /*...................................................................*/
 /* Configuration                                                     */
@@ -60,24 +59,25 @@
 #define   CONSOLE_X_ORIENTATION 0   /* in number of characters */
 #define   CONSOLE_Y_ORIENTATION 10  /* in number of lines */
 #define ENABLE_USB         TRUE  /* enable USB host */
-#define ENABLE_XMODEM      FALSE  /* enable xmodem */
+#define ENABLE_XMODEM      TRUE  /* enable xmodem */
 #define ENABLE_BOOTLOADER  FALSE /* enable boot loader */
 #define   MAX_BOOT_LENGTH  (1024 * 1024 * 16) /* 16 MB boot image max */
 #define ENABLE_MALLOC      TRUE  /* enable malloc/free */
 #define ENABLE_PRINTF      TRUE  /* printf arguments */
 #define ENABLE_ASSERT      (TRUE && ENABLE_PRINTF)/*enable assertions */
 #define ENABLE_AUTO_START  TRUE /* Auto start enabled devices */
-//#define ENABLE_AUTO_START  FALSE /* Auto start enabled devices */
 
 /* USB Specific configuration */
 #define ENABLE_USB_HID     (TRUE && ENABLE_USB) /* for keyboard/mouse */
-#define ENABLE_USB_ETHER   (FALSE && ENABLE_USB) /* enable Ethernet */
+#define ENABLE_USB_ETHER   (TRUE && ENABLE_USB) /* enable Ethernet */
 #define ENABLE_USB_TASK    (FALSE && ENABLE_USB)/* USB intr task */
 //#define ENABLE_USB_TASK    (TRUE && ENABLE_USB)/* USB intr task */
 
 /* Network configuration */
-#define ENABLE_IP4         (FALSE &&  ENABLE_MALLOC && ENABLE_ETHER)
-#define ENABLE_IP6         (FALSE && ENABLE_MALLOC && ENABLE_ETHER)
+#define ENABLE_IP4         (TRUE && \
+                            ENABLE_MALLOC && ENABLE_ETHER)
+#define ENABLE_IP6         (FALSE && \
+                            ENABLE_MALLOC && ENABLE_ETHER)
 #define ENABLE_UDP         (TRUE && (ENABLE_IP4 || ENABLE_IP4))/* UDP */
 #define ENABLE_TCP         (FALSE && (ENABLE_IP4 || ENABLE_IP4))/* TCP*/
 #define ENABLE_DHCP        (TRUE && ENABLE_UDP)/* Dynamic IP Discovery*/

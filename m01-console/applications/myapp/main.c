@@ -152,7 +152,7 @@ int main(void)
   putu32(OgSp);
   puts(" : stack pointer");
 
-  //GameStart(0);
+  GameStart(0);
 
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */

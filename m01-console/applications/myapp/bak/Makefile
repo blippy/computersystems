@@ -49,14 +49,13 @@ ASFLAGS =
 #DIR = 
 
 VPATH = ../boards/rpi:../boards/peripherals/dwc:../boards/peripherals/uart:../system:../usb
-#../boards/peripherals/ethernet
-#../network/core:../network/core/ipv4:../network/netif
+VPATH += :../boards/peripherals/ethernet:../network/core:../network/core/ipv4:../network/netif
 
 INCLUDES = -I. -I../include -I../boards/rpi \
            -I../boards/peripherals
 
-#           -I../include/network -I../include/network/lwip \
-#           -I../include/network/ipv4 \
+INCLUDES += -I../include/network -I../include/network/lwip \
+           -I../include/network/ipv4 \
 
 ##
 ## Console application
@@ -92,12 +91,12 @@ NET_OBJS =  \
           tcp.o \
           tcp_in.o \
           tcp_out.o \
-          timers.o \
           udp.o \
           etharp.o \
           ethernetif.o 
 
-OBJS     = board.o \
+OBJS     = $(NET_OBJS) \
+	   board.o \
 	app.o \
           framebuffer.o \
           property.o \
