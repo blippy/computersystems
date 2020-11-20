@@ -1,4 +1,7 @@
 KERN = kernel7
+IMG = $(KERN).img
+BIN = $(KERN).bin
+ELF = $(KERN).elf
 
 ##
 ## Commands:
@@ -17,7 +20,7 @@ PLINK	= arm-none-eabi-objcopy
 ##
 ## Definitions:
 ##
-APPNAME = game
+#APPNAME = game
 
 # Define the RPI hardware version: 1 is up to B+, 2 is 2, 3 is up to 3 B+
 EXTRAS = -DRPI=3 -ffreestanding
@@ -42,10 +45,18 @@ ASFLAGS =
 #ASFLAGS = -mfpu=neon-vfpv4 -mfloat-abi=hard
 ##RPI B+
 #ASFLAGS = -mcpu=arm1176jzf-s
-INCLUDES = -I. -I../../include -I../../boards/rpi \
-           -I../../include/network -I../../include/network/lwip \
-           -I../../include/network/ipv4 -I../../boards/rpi \
-           -I../../boards/peripherals
+
+#DIR = 
+
+VPATH = ../boards/rpi:../boards/peripherals/dwc:../boards/peripherals/uart:../system:../usb
+#../boards/peripherals/ethernet
+#../network/core:../network/core/ipv4:../network/netif
+
+INCLUDES = -I. -I../include -I../boards/rpi \
+           -I../boards/peripherals
+
+#           -I../include/network -I../include/network/lwip \
+#           -I../include/network/ipv4 \
 
 ##
 ## Console application
@@ -55,63 +66,65 @@ INCLUDES = -I. -I../../include -I../../boards/rpi \
 #APP     = ../../boards/rpi/app.o \
 #APP     = ../../boards/rpi/loader.o \
 
-APP     = ../../boards/rpi/app.o \
-          ../../boards/rpi/board.o \
-          ../../boards/rpi/framebuffer.o \
-          ../../boards/rpi/property.o \
-          ../../boards/peripherals/dwc/host.o \
-          ../../boards/peripherals/dwc/transfer.o \
-          ../../boards/peripherals/ethernet/lan95xx.o \
-          ../../boards/peripherals/ethernet/lan78xx.o \
-          ../../boards/peripherals/uart/16550.o \
-          ../../boards/peripherals/uart/16C650.o \
-          ../../system/character.o \
-          ../../system/console.o \
-          ../../system/os.o \
-          ../../system/malloc.o \
-          ../../system/assert.o \
-          ../../system/printf.o \
-          ../../system/rand.o \
-          ../../system/screen.o \
-          ../../system/string.o \
-          ../../system/stdio.o \
-          ../../system/shell.o \
-          ../../system/timers.o \
-          ../../system/xmodem.o \
-          ../../usb/device.o \
-          ../../usb/endpoint.o \
-          ../../usb/hub.o \
-          ../../usb/keyboard.o \
-          ../../usb/mouse.o \
-          ../../usb/request.o \
-          ../../usb/rootport.o \
-          ../../network/core/ipv4/autoip.o \
-          ../../network/core/ipv4/icmp.o \
-          ../../network/core/ipv4/igmp.o \
-          ../../network/core/ipv4/inet.o \
-          ../../network/core/ipv4/inet_chksum.o \
-          ../../network/core/ipv4/ip.o \
-          ../../network/core/ipv4/ip_addr.o \
-          ../../network/core/ipv4/ip_frag.o \
-          ../../network/core/def.o \
-          ../../network/core/dhcp.o \
-          ../../network/core/dns.o \
-          ../../network/core/init.o \
-          ../../network/core/mem.o \
-          ../../network/core/memp.o \
-          ../../network/core/netif.o \
-          ../../network/core/pbuf.o \
-          ../../network/core/raw.o \
-          ../../network/core/stats.o \
-          ../../network/core/sys.o \
-          ../../network/core/tftp_clnt.o \
-          ../../network/core/tcp.o \
-          ../../network/core/tcp_in.o \
-          ../../network/core/tcp_out.o \
-          ../../network/core/timers.o \
-          ../../network/core/udp.o \
-          ../../network/netif/etharp.o \
-          ../../network/netif/ethernetif.o \
+NET_OBJS =  \
+          lan95xx.o \
+          lan78xx.o \
+          autoip.o \
+          icmp.o \
+          igmp.o \
+          inet.o \
+          inet_chksum.o \
+          ip.o \
+          ip_addr.o \
+          ip_frag.o \
+          def.o \
+          dhcp.o \
+          dns.o \
+          init.o \
+          mem.o \
+          memp.o \
+          netif.o \
+          pbuf.o \
+          raw.o \
+          stats.o \
+          sys.o \
+          tftp_clnt.o \
+          tcp.o \
+          tcp_in.o \
+          tcp_out.o \
+          timers.o \
+          udp.o \
+          etharp.o \
+          ethernetif.o 
+
+OBJS     = board.o \
+	app.o \
+          framebuffer.o \
+          property.o \
+          host.o \
+          transfer.o \
+          16550.o \
+          16C650.o \
+          character.o \
+          console.o \
+          os.o \
+          malloc.o \
+          assert.o \
+          printf.o \
+          rand.o \
+          screen.o \
+          string.o \
+          stdio.o \
+          shell.o \
+          timers.o \
+          xmodem.o \
+          device.o \
+          endpoint.o \
+          hub.o \
+          keyboard.o \
+          mouse.o \
+          request.o \
+          rootport.o \
           denzi_data.o \
           game_grid.o \
           virtual_world.o \
@@ -135,19 +148,15 @@ LIBS =
 ## Targets
 ##
 
-all:	app
+all:	$(IMG)
 
-app:	$(APP)
-	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(APPNAME).elf \
-	        $(APP) $(LIBS)
-	$(PLINK) $(APPNAME).elf -O binary $(APPNAME).bin
-	$(CP) $(APPNAME).bin $(KERN).img
+$(ELF) : $(OBJS)
+	$(LINK) -Map $(KERN).map -T ../boards/rpi/memory.map -o $(ELF) $(OBJS) $(LIBS)
+
+$(IMG):	$(ELF)
+	$(PLINK) $^ -O binary $@
 
 clean:
-	rm -f $(APP)
-	rm -f $(APPNAME).bin
-	rm -f $(APPNAME).elf
-	rm -f kernel*.img
-	rm -f kernel*.map
+	rm -f *.bin *.elf *.img *.map *.o
 
--include ../../../Blippy.mk
+-include ../../Blippy.mk
