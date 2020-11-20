@@ -47,19 +47,19 @@
 #define TILE_HEIGHT       16 // In pixels
 
 // Determine grid onfiguration based on screen size
-#if PIXEL_WIDTH == 640 // 640x480
+//#if PIXEL_WIDTH == 640 // 640x480
 #define GAME_GRID_WIDTH   28
 #define GAME_GRID_HEIGHT  28
 #define GAME_GRID_START_X 180
 #define GAME_GRID_START_Y 20
-#elif PIXEL_WIDTH == 1024 // 1024x768
-#define GAME_GRID_WIDTH   48
-#define GAME_GRID_HEIGHT  48
-#define GAME_GRID_START_X 256
-#define GAME_GRID_START_Y 0
-#else
-#error "Game grid supports screen resolution of 640x480 or 1024x768"
-#endif
+//#elif PIXEL_WIDTH == 1024 // 1024x768
+//#define GAME_GRID_WIDTH   48
+//#define GAME_GRID_HEIGHT  48
+//#define GAME_GRID_START_X 256
+//#define GAME_GRID_START_Y 0
+//#else
+//#error "Game grid supports screen resolution of 640x480 or 1024x768"
+//#endif
 
 // Tile flags
 #define IS_VISIBLE    (1 << 24)

@@ -51,8 +51,10 @@
 #define ENABLE_UART1       FALSE /* enable secondary UART */
 #define ENABLE_JTAG        TRUE  /* enable JTAG debugging */
 #define ENABLE_VIDEO       TRUE  /* enable video console */
-#define   PIXEL_WIDTH           640 /* zero to auto-detect */
-#define   PIXEL_HEIGHT          480 /* zero to auto-detect */
+//#define   PIXEL_WIDTH           640 /* zero to auto-detect */
+#define   PIXEL_WIDTH           1920 /* zero to auto-detect */
+//#define   PIXEL_HEIGHT          480 /* zero to auto-detect */
+#define   PIXEL_HEIGHT          1080 /* zero to auto-detect */
 #define   COLOR_DEPTH_BITS      16  /* color depth in bits, 32 or 16 */
 #define   CONSOLE_X_DIVISOR     4   /* fractional screen, 1 is full */
 #define   CONSOLE_Y_DIVISOR     1   /* fractional screen, 1 is full */
