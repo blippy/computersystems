@@ -99,7 +99,143 @@ KeyboardDevice;
 /*...................................................................*/
 /* Global Variables                                                  */
 /*...................................................................*/
-char KeyMap[][2] =
+
+char UkKeyMap[][2] =
+{
+  {'?', '?'}, // 0x00 dunno
+  {'?', '?'}, // 0x01 dunno
+  {'?', '?'}, // 0x02 dunno
+  {'?', '?'}, // 0x03 dunno
+  {'a', 'A'}, // 0x04
+  {'b', 'B'}, // 0x05
+  {'c', 'C'}, // 0x06
+  {'d', 'D'}, // 0x07
+  {'e', 'E'}, // 0x08
+  {'f', 'F'}, // 0x09
+  {'g', 'G'}, // 0x0A
+  {'h', 'H'}, // 0x0B
+  {'i', 'I'}, // 0x0C
+  {'j', 'J'}, // 0x0D
+  {'k', 'K'}, // 0x0E
+  {'l', 'L'}, // 0x0F
+  {'m', 'M'}, // 0x10
+  {'n', 'N'}, // 0x11
+  {'o', 'O'}, // 0x12
+  {'p', 'P'}, // 0x13
+  {'q', 'Q'}, // 0x14
+  {'r', 'R'}, // 0x15
+  {'s', 'S'}, // 0x16
+  {'t', 'T'}, // 0x17
+  {'u', 'U'}, // 0x18
+  {'v', 'V'}, // 0x19
+  {'w', 'W'}, // 0x1A
+  {'x', 'X'}, // 0x1B
+  {'y', 'Y'}, // 0x1C
+  {'z', 'Z'}, // 0x1D
+  {'1', '!'}, // 0x1E
+  {'2', '\"'}, // 0x1F
+  {'3', '$'}, // 0x20 // should be GBP
+  {'4', '$'}, // 0x21
+  {'5', '%'}, // 0x22
+  {'6', '^'}, // 0x23
+  {'7', '&'}, // 0x24
+  {'8', '*'}, // 0x25
+  {'9', '('}, // 0x26
+  {'0', ')'}, // 0x27
+  {'\n','\n'},// 0x28
+  {'\e','\e'},// 0x29
+  {'\b','\b'},// 0x2A
+  {'\t','\t'},// 0x2B
+  {' ', ' '}, // 0x2C
+  {'-', '_'}, // 0x2D
+  {'=', '+'}, // 0x2E
+  {'[', '{'}, // 0x2F
+  {']', '}'}, // 0x30
+  {'\\','|'}, // 0x31
+  {'#', '~'}, // 0x32
+  {';', ':'}, // 0x33
+  {'\'','\"'},// 0x34
+  {'`', '~'}, // 0x35
+  {',', '<'}, // 0x36
+  {'.', '>'}, // 0x37
+  {'/', '?'}, // 0x38
+  {'\1','\1'}, // 0x39 Caps lock
+  {'?', '?'}, //0x3A dunno
+  {';', ':'}, // 0x3B
+  {'?', '?'}, //0x3C dunno
+  {'?', '?'}, //0x3D dunno
+  {'?', '?'}, //0x3E dunno
+  {'?', '?'}, //0x3F 
+  {'?', '?'}, //0x40 dunno
+  {'?', '?'}, //0x41 dunno
+  {'?', '?'}, //0x42 dunno
+  {'?', '?'}, //0x43 dunno
+  {'?', '?'}, //0x44 dunno
+  {'?', '?'}, //0x45 dunno
+  {'?', '?'}, //0x46 dunno
+  {'?', '?'}, //0x47 dunno
+  {'?', '?'}, //0x48 dunno
+  {'?', '?'}, //0x49 dunno
+  {'?', '?'}, //0x4A dunno
+  {'?', '?'}, //0x4B dunno
+  {'?', '?'}, //0x4C dunno
+  {'?', '?'}, //0x4D dunno
+  {'?', '?'}, //0x4E dunno
+  {'?', '?'}, //0x4F dunno
+  {'?', '?'}, //0x50 dunno
+  {'?', '?'}, //0x51 dunno
+  {'?', '?'}, //0x52 dunno
+  {'?', '?'}, //0x53 dunno
+  {'?', '?'}, //0x54 dunno
+  {'?', '?'}, //0x55 dunno
+  {'?', '?'}, //0x56 dunno
+  {'?', '?'}, //0x57 dunno
+  {'?', '?'}, //0x58 dunno
+  {'?', '?'}, //0x59 dunno
+  {'?', '?'}, //0x5A dunno
+  {'?', '?'}, //0x5B dunno
+  {'?', '?'}, //0x5C dunno
+  {'?', '?'}, //0x5D dunno
+  {'?', '?'}, //0x5E dunno
+  {'?', '?'}, //0x5F dunno
+  {'?', '?'}, //0x60 dunno
+  {'?', '?'}, //0x61 dunno
+  {'?', '?'}, //0x62 dunno
+  {'?', '?'}, //0x63 dunno
+
+  {'\\', '|'}, //0x64 something useful
+
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+  {'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+{'?', '?'}, //0x dunno
+
+};
+
+char UsKeyMap[][2] =
 {
   {  0,  0 }, // 0x00
   {  0,  0 }, // 0x01
@@ -390,8 +526,9 @@ static void generate_key_event(KeyboardDevice *keyboard, u8 phyCode)
     modifiers = DEFAULT_MODIFIER;
 
   // If a valid character use key map to convert to ascii
-  if (phyCode <= 0x39)
-    asciiCode = KeyMap[phyCode][modifiers - 1];
+//putbyte(phyCode); // for testing purposes
+  if (phyCode <= sizeof(UkKeyMap)/2)
+    asciiCode = UkKeyMap[phyCode][modifiers - 1];
   else
     return;
 
@@ -533,6 +670,7 @@ static int start_request(KeyboardDevice *keyboard)
 /*...................................................................*/
 void ConsoleEnableKeyboard(void)
 {
+#if 1
   /* Extend the console state for keyboard input. */
   ConsoleState.getc = usbKbdGetc;
   ConsoleState.check = usbKbdCheck;
@@ -542,6 +680,7 @@ void ConsoleEnableKeyboard(void)
 #if ENABLE_OS
   /* Create the task for the video console. */
   TaskNew(MAX_TASKS - 2, ShellPoll, &ConsoleState);
+#endif
 #endif
 }
 
