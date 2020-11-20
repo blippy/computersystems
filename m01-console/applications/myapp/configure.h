@@ -39,7 +39,9 @@
 #define _CONFIGURE_H
 
 // Application configuration
-#define ENABLE_GAME        (TRUE && ENABLE_VIDEO)
+//#define ENABLE_GAME        (TRUE && ENABLE_VIDEO)
+#define ENABLE_GAME FALSE
+
 
 /*...................................................................*/
 /* Configuration                                                     */
