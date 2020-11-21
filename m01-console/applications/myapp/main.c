@@ -171,6 +171,9 @@ int main(void)
   TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
 #endif /* ENABLE_OS */
 
+  void* mem = malloc(10); // just a test - seems to work, too
+  *(char*)  mem = 0;
+
   // Initialize user devices
 
 #if ENABLE_AUTO_START
