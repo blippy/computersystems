@@ -17,7 +17,7 @@ PLINK	= arm-none-eabi-objcopy
 ##
 ## Definitions:
 ##
-APPNAME = game
+APPNAME = $(KERN)
 
 # Define the RPI hardware version: 1 is up to B+, 2 is 2, 3 is up to 3 B+
 EXTRAS = -DRPI=3 -ffreestanding
@@ -138,15 +138,15 @@ LIBS =
 all:	app
 
 app:	$(APP)
-	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(APPNAME).elf \
+	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(KERN).elf \
 	        $(APP) $(LIBS)
-	$(PLINK) $(APPNAME).elf -O binary $(APPNAME).bin
-	$(CP) $(APPNAME).bin $(KERN).img
+	$(PLINK) $(KERN).elf -O binary $(KERN).bin
+	$(CP) $(KERN).bin $(KERN).img
 
 clean:
 	rm -f $(APP)
-	rm -f $(APPNAME).bin
-	rm -f $(APPNAME).elf
+	rm -f *.bin
+	rm -f *.elf
 	rm -f kernel*.img
 	rm -f kernel*.map
 
