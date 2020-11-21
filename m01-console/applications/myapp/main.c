@@ -108,6 +108,12 @@ int UsbHostStart(char *command)
 #endif /* ENABLE_USB */
 
 
+_Noreturn void a(int count)
+{
+	printf("a(%d) called\n", count);
+	longjmp(jump_buffer, count+1);
+}
+
 int myinit(const char *command)
 {
   if (ScreenUp)
@@ -129,11 +135,6 @@ int myinit(const char *command)
 
 jmp_buf jump_buffer;
 
-_Noreturn void a(int count)
-{
-	puts("a() called");
-	longjmp(jump_buffer, count+1);
-}
 
 /*...................................................................*/
 /*        main: Application Entry Point                              */
