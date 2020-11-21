@@ -143,4 +143,4 @@ app:	$(APP)
 	$(PLINK) $(KERN).elf -O binary $(KERN).bin
 	$(CP) $(KERN).bin $(KERN).img
 
--include ../../../Blippy.mk
+-include ../../Blippy.mk
