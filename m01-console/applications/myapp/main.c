@@ -43,11 +43,18 @@
 #include <usb/request.h>
 #include <usb/device.h>
 
+#include <yasetjmp.h>
+
 extern int GameStart(const char *command);
 
 extern int OgSp;
 
+jmp_buf jump_buffer;
+
+
 int ScreenUp, GameUp, UsbUp, NetUp;
+
+//#include <setjmp.h>
 
 #if ENABLE_USB_HID
 
@@ -108,39 +115,26 @@ int myinit(const char *command)
     StdioState = &ConsoleState;
     ScreenClear();
 
-#if 0
-    // Cancel the old timer if already started
-    if (TheWorld.round)
-    {
-      TimerCancel(TheWorld.round);
-      TheWorld.round = NULL;
+    puts("\nAdventure awaits! 2");
+    volatile int count = 0;
+    if(setjmp(jump_buffer) != 5) {
+	    a(++count);
     }
-    // Clear the screen first
-
-    // Seed the PRNG
-    srand(TimerNow() ^ 'G');
-
-    TheWorld.tiles = (void *)GameGrid;
-    TheWorld.x = GAME_GRID_WIDTH;
-    TheWorld.y = GAME_GRID_HEIGHT;
-    TheWorld.level = 0;
-    TheWorld.score = 0;
-
-    // Create the world, player character and start the game
-    world_create_random(&TheWorld, 0);
-    player_create_random(&TheCharacter, &TheWorld);
-    game_start(&TheCharacter, TheCreatures, &TheWorld,
-               MICROS_PER_SECOND);
-
-    GameUp = TRUE;
-#endif
-    puts("\nAdventure awaits!");
   }
   else
     puts("Video screen not initialized");
 
   return TASK_FINISHED;
 }
+
+jmp_buf jump_buffer;
+
+_Noreturn void a(int count)
+{
+	puts("a() called");
+	longjmp(jump_buffer, count+1);
+}
+
 /*...................................................................*/
 /*        main: Application Entry Point                              */
 /*                                                                   */
@@ -198,6 +192,7 @@ int main(void)
 
   //GameStart(0);
   myinit(0);
+
 
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */

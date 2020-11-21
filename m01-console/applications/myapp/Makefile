@@ -117,6 +117,8 @@ APP     = ../../boards/rpi/app.o \
           virtual_world.o \
           main.o
 
+APP += ../../system/setjmp.o
+
 LIBS =
 
 ##
