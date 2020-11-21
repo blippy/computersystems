@@ -143,11 +143,4 @@ app:	$(APP)
 	$(PLINK) $(KERN).elf -O binary $(KERN).bin
 	$(CP) $(KERN).bin $(KERN).img
 
-clean:
-	rm -f $(APP)
-	rm -f *.bin
-	rm -f *.elf
-	rm -f kernel*.img
-	rm -f kernel*.map
-
 -include ../../../Blippy.mk
