@@ -45,7 +45,8 @@ ASFLAGS =
 INCLUDES = -I. -I../../include -I../../boards/rpi \
            -I../../include/network -I../../include/network/lwip \
            -I../../include/network/ipv4 -I../../boards/rpi \
-           -I../../boards/peripherals
+           -I../../boards/peripherals \
+	   -I../../lua
 
 ##
 ## Console application
@@ -117,7 +118,7 @@ APP     = ../../boards/rpi/app.o \
           virtual_world.o \
           main.o
 
-LIBS =
+LIBS = ../../lua/liblua.a
 
 ##
 ## Implicit Targets

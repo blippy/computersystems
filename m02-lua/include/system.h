@@ -39,6 +39,8 @@
 #define _SYSTEM_H
 
 #include <configure.h>
+#include <stddef.h>
+#include <stdint.h>
 
 /*...................................................................*/
 /* Configuration                                                     */
@@ -53,7 +55,7 @@
 */
 #define TRUE           1
 #define FALSE          0
-#define NULL           0
+//#define NULL           0
 
 /*
 ** Time definitions
@@ -110,8 +112,8 @@ typedef char               i8;
 typedef short              i16;
 typedef int                i32;
 typedef long long          i64;
-typedef unsigned long      size_t;
-typedef unsigned long      uintptr_t;
+//typedef unsigned long      size_t;
+//typedef unsigned long      uintptr_t;
 
 /*
  * Alternate integer types
@@ -130,11 +132,11 @@ typedef long long          s64_t;
 */
 typedef unsigned char      uint8_t;
 typedef unsigned short     uint16_t;
-typedef unsigned int       uint32_t;
+//typedef unsigned int       uint32_t;
 typedef unsigned long long uint64_t;
-typedef char               int8_t;
+//typedef char               int8_t;
 typedef short              int16_t;
-typedef int                int32_t;
+//typedef int                int32_t;
 typedef long long          int64_t;
 
 #if COLOR_DEPTH_BITS == 16

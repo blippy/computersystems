@@ -43,6 +43,10 @@
 #include <usb/request.h>
 #include <usb/device.h>
 
+#include <lua.h>
+//#include <lauxlib.h>
+#include <lualib.h>
+
 extern int GameStart(const char *command);
 
 extern int OgSp;
@@ -195,6 +199,9 @@ int main(void)
 
   //GameStart(0);
   myinit(0);
+
+  lua_State *l = lua_open();
+  lua_close(l);
 
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */
