@@ -1,18 +1,18 @@
 KERN = kernel7
-
+-include ../../Settings.mk
 ##
 ## Commands:
 ##
 CP	= cp
 RM	= rm
 LN	= ln
-C	= arm-none-eabi-gcc
-CC	= arm-none-eabi-gcc
-CPP	= arm-none-eabi-gcc
-AR	= arm-none-eabi-ar
-AS	= arm-none-eabi-as
-LINK	= arm-none-eabi-ld
-PLINK	= arm-none-eabi-objcopy
+#C	= arm-none-eabi-gcc
+#CC	= arm-none-eabi-gcc
+#CPP	= arm-none-eabi-gcc
+#AR	= arm-none-eabi-ar
+#AS	= arm-none-eabi-as
+#LINK	= arm-none-eabi-ld
+#PLINK	= arm-none-eabi-objcopy
 
 ##
 ## Definitions:
@@ -46,6 +46,8 @@ INCLUDES = -I. -I../../include -I../../boards/rpi \
            -I../../include/network -I../../include/network/lwip \
            -I../../include/network/ipv4 -I../../boards/rpi \
            -I../../boards/peripherals
+
+#INCLUDES += -I../../fatfs -I../..
 
 ##
 ## Console application
@@ -119,6 +121,8 @@ APP     = ../../boards/rpi/app.o \
 
 APP += ../../system/setjmp.o
 
+#APP += ../../fatfs/diskio.o ../../fatfs/ff.o 
+
 LIBS =
 
 ##
@@ -144,5 +148,6 @@ app:	$(APP)
 	        $(APP) $(LIBS)
 	$(PLINK) $(KERN).elf -O binary $(KERN).bin
 	$(CP) $(KERN).bin $(KERN).img
+	echo "TOP is " $(TOP)
 
 -include ../../Blippy.mk

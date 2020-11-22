@@ -40,8 +40,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <usb/request.h>
 #include <usb/device.h>
+
+//#include <fatfs/ff.h>
 
 #include <yasetjmp.h>
 
@@ -135,6 +138,17 @@ int myinit(const char *command)
 
 jmp_buf jump_buffer;
 
+#if 0
+bool f_exists(const char* path)
+{
+	FIL file;
+	FRESULT res = f_open(&file, path, FA_READ  | FA_OPEN_EXISTING);
+	if(res != FR_OK) return 0;
+
+	f_close(&file);
+	return 1;
+}
+#endif
 
 /*...................................................................*/
 /*        main: Application Entry Point                              */

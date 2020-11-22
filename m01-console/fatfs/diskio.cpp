@@ -10,10 +10,10 @@
 
 #include "ff.h"			/* Obtains integer types */
 #include "diskio.h"		/* Declarations of disk functions */
-#include <circle/device.h>
-#include <circle/devicenameservice.h>
-#include <circle/util.h>
-#include <circle/types.h>
+//#include <circle/device.h>
+//#include <circle/devicenameservice.h>
+//#include <circle/util.h>
+//#include <circle/types.h>
 #include <assert.h>
 
 #if FF_MIN_SS != FF_MAX_SS
