@@ -1,6 +1,4 @@
-//
-/// \file setjmp.h
-//
+#pragma once
 // Circle - A C++ bare metal environment for Raspberry Pi
 // Copyright (C) 2020  R. Stange <rsta2@o2online.de>
 //
@@ -17,37 +15,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-#ifndef _circle_setjmp_h
-#define _circle_setjmp_h
 
-#if STDLIB_SUPPORT >= 2
-	#include <setjmp.h>
-#else
-
-//#include <circle/macros.h>
-//#include <circle/types.h>
-
-#define AARCH 32
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#if AARCH == 32
+#if __SIZEOF_POINTER__ == 4
 typedef u32	jmp_buf[11];
 #else
 typedef u64	jmp_buf[14];
 #endif
 
 int setjmp (jmp_buf env);
-
-//void longjmp (jmp_buf env, int val) NORETURN;
 _Noreturn void longjmp (jmp_buf env, int val);
 
 #ifdef __cplusplus
 }
-#endif
-
-#endif
-
 #endif

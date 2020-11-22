@@ -18,10 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define AARCH 32
 	.text
 
-#if AARCH == 32
+#if __SIZEOF_POINTER__ == 4
 
 	.globl	setjmp
 setjmp:
