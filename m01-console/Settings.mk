@@ -1,6 +1,6 @@
 # Set the top level directory, which is "here".
 # Uses $$ instead to $ to escape it from make
-TOP := $(shell perl -MCwd -e 'my ($$m) = cwd() =~ /(^.*m01-console).*/ ; print "$$m"')
+TOP ?= $(shell perl -MCwd -e 'my ($$m) = cwd() =~ /(^.*m01-console).*/ ; print "$$m"')
 
 CC	= arm-none-eabi-gcc
 CPP	= arm-none-eabi-gcc
