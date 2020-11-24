@@ -57,7 +57,7 @@ INCLUDES = -I. -I../../include -I../../boards/rpi \
 #APP     = ../../boards/rpi/app.o \
 #APP     = ../../boards/rpi/loader.o \
 
-APP     = ../../boards/rpi/app.o \
+OBJS     = ../../boards/rpi/app.o \
           ../../boards/rpi/board.o \
           ../../boards/rpi/framebuffer.o \
           ../../boards/rpi/property.o \
@@ -119,7 +119,7 @@ APP     = ../../boards/rpi/app.o \
           virtual_world.o \
           main.o
 
-APP += ../../system/setjmp.o
+OBJS += ../../system/setjmp.o
 
 #APP += ../../fatfs/diskio.o ../../fatfs/ff.o 
 
@@ -143,9 +143,8 @@ LIBS =
 
 all:	app
 
-app:	$(APP)
-	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(KERN).elf \
-	        $(APP) $(LIBS)
+app:	$(OBJS)
+	$(LINK) -Map $(KERN).map -T ../../boards/rpi/memory.map -o $(KERN).elf $(OBJS) $(LIBS)
 	$(PLINK) $(KERN).elf -O binary $(KERN).bin
 	$(CP) $(KERN).bin $(KERN).img
 	echo "TOP is " $(TOP)
