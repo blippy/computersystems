@@ -48,6 +48,7 @@
 
 #include <yasetjmp.h>
 
+void sd_test();
 extern int GameStart(const char *command);
 
 extern int OgSp;
@@ -208,6 +209,7 @@ int main(void)
   //GameStart(0);
   myinit(0);
 
+  sd_test();
 
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */

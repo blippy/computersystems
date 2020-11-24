@@ -69,6 +69,7 @@ OBJS     = ../../boards/rpi/app.o \
           ../../boards/peripherals/uart/16C650.o \
           ../../system/character.o \
           ../../system/console.o \
+	  ../../system/delays.o \
           ../../system/os.o \
           ../../system/malloc.o \
           ../../system/assert.o \
@@ -120,6 +121,8 @@ OBJS     = ../../boards/rpi/app.o \
           main.o
 
 OBJS += ../../system/setjmp.o
+OBJS += sd.o
+OBJS += sd-test.o
 
 #APP += ../../fatfs/diskio.o ../../fatfs/ff.o 
 

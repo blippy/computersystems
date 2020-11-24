@@ -1,6 +1,6 @@
 
 
-SD = /media/pi/8BC8-8129
+SD = /media/pi/50BD-6FEC
 
 install : flash
 	
