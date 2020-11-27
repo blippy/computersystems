@@ -49,7 +49,7 @@
 #define ENABLE_OS          TRUE
 #define ENABLE_SHELL       TRUE
 
-#define ENABLE_UART0       TRUE  /* enable primary UART */
+#define ENABLE_UART0       FALSE  /* enable primary UART */
 #define ENABLE_UART1       FALSE /* enable secondary UART */
 #define ENABLE_JTAG        TRUE  /* enable JTAG debugging */
 #define ENABLE_VIDEO       TRUE  /* enable video console */
