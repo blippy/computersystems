@@ -55,6 +55,11 @@ struct shell_state *StdioState;
 /*...................................................................*/
 int putchar(char character)
 {
+// mcarter 2020-11-27 added
+
+  if (ScreenUp) DisplayCharacter(character, COLOR_WHITE);
+return 0;
+
 #if ENABLE_OS
   StdioState->putc(character);
 #else
@@ -92,6 +97,14 @@ int putchar(char character)
 /*...................................................................*/
 char getchar(void)
 {
+
+// mcarter added 2020-11-27
+if(ConsoleState.getc)
+return ConsoleState.getc();
+else
+return 0;
+
+
 #if ENABLE_OS
   return StdioState->getc();
 #else
@@ -124,6 +137,10 @@ char getchar(void)
 /*...................................................................*/
 int puts(const char *string)
 {
+while(*string) putchar(*string++);
+putchar('\n');
+return 0;
+
 #if ENABLE_OS
   StdioState->puts(string);
 #else

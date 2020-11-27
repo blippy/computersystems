@@ -212,12 +212,15 @@ int OsTick(void)
 /*...................................................................*/
 void OsStart(void)
 {
+puts("OsStart:called");
   int status = TASK_IDLE;
 
   /* Execute all tasks until none remain to execute. */
   TaskId = -1;
-  for (; status != -1; )
+  for (; status != -1; ) {
     status = OsTick();
+    //putchar('.');
+}
 }
 
 #endif

@@ -747,6 +747,7 @@ void KeyboardRelease(KeyboardDevice *device)
 /*...................................................................*/
 int KeyboardUp(const char *command)
 {
+puts("KeyboardUP:called");
   if (!UsbUp)
     puts("USB not initialized");
 
@@ -765,13 +766,13 @@ int KeyboardUp(const char *command)
 
 #if ENABLE_VIDEO
       /* Start the interactive console if screen is up. */
-      if (ScreenUp)
-        ConsoleEnableKeyboard();
+      //if (ScreenUp) ConsoleEnableKeyboard(); I think this causes crashes
 #endif
   }
   else
     puts("USB keyboard already initialized");
 
+puts("KeyboardUp:exiting");
   return TASK_FINISHED;
 }
 

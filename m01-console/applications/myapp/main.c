@@ -72,6 +72,7 @@ unsigned int usbKbdCheck(void)
 char usbKbdGetc(void)
 {
   char key = KeyIn;
+  putchar(key);
 
   KeyIn = 0;
   return key;
@@ -80,10 +81,11 @@ char usbKbdGetc(void)
 void KeyPressedHandler(const char ascii)
 {
   KeyIn = ascii;
+  putchar(KeyIn);
+}
 
-  /* If interactive console is not up yet, output to UART. */
-  if (ConsoleState.getc == NULL)
-    Uart0State.putc(ascii);
+void custom_flush()
+{
 }
 
 #endif /* ENABLE_USB_HID */
@@ -151,6 +153,21 @@ bool f_exists(const char* path)
 }
 #endif
 
+extern int KeyboardUp(const char *command);
+
+int letsgo_task(const char *command)
+{
+	// wait until keyboard is enabled
+	extern int KeyboardEnabled;
+	if(!KeyboardEnabled) 
+		return TASK_IDLE;
+
+	puts("I think we're finally ready to go. Type something, and I will echo");
+	return TASK_FINISHED;
+}
+
+
+
 /*...................................................................*/
 /*        main: Application Entry Point                              */
 /*                                                                   */
@@ -161,6 +178,13 @@ int main(void)
   // Initialize hardware peripheral configuration
   NetUp = UsbUp = ScreenUp = FALSE;
 
+  bzero(&ConsoleState, sizeof(ConsoleState));
+  Console(&ConsoleState);
+  ConsoleState.flush = custom_flush;
+  ConsoleState.getc = usbKbdGetc;
+  ConsoleState.check = usbKbdCheck;
+  StdioState = &ConsoleState;
+
   /* Initialize the base software interface to the hardware. */
   BoardInit();
 
@@ -168,7 +192,8 @@ int main(void)
   // Initialize the Operating System (OS) and create system tasks
   OsInit();
 
-#if 1
+
+#if 0
 #if ENABLE_UART0
   StdioState = &Uart0State;
   TaskNew(0, ShellPoll, &Uart0State);
@@ -178,6 +203,9 @@ int main(void)
 #endif
 #endif
 
+  //KeyboardUp(NULL); // doesn't seem to help
+
+  //ConsoleEnableKeyboard();  // seems to actually cause a crash
   // Initialize the timer and LED tasks
   TaskNew(1, TimerPoll, &TimerStart);
   TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
@@ -192,13 +220,10 @@ int main(void)
 #if ENABLE_VIDEO
   /* Initialize screen and console. */
   ScreenInit();
+  ScreenUp = TRUE;
 
-  /* Register video console with the OS. */
-  bzero(&ConsoleState, sizeof(ConsoleState));
-  Console(&ConsoleState);
 #endif
 #if ENABLE_USB
-  // Start the USB host
   UsbHostStart(NULL);
 #endif
 #endif
@@ -211,9 +236,12 @@ int main(void)
   //GameStart(0);
   myinit(0);
 
-  sd_test();
+  if(0) sd_test(); // surpess for now
+  //TaskNew(0, KeyboardUp, 0);
   puts("Guess we're about ready to go 1");
 
+
+  TaskNew(100, letsgo_task, 0);
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */
   OsStart();
