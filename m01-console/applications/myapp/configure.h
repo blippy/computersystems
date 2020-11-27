@@ -58,10 +58,12 @@
 //#define   PIXEL_HEIGHT          480 /* zero to auto-detect */
 #define   PIXEL_HEIGHT          1080 /* zero to auto-detect */
 #define   COLOR_DEPTH_BITS      16  /* color depth in bits, 32 or 16 */
-#define   CONSOLE_X_DIVISOR     4   /* fractional screen, 1 is full */
+//#define   CONSOLE_X_DIVISOR     4   /* fractional screen, 1 is full */
+#define   CONSOLE_X_DIVISOR     1   /* fractional screen, 1 is full */
 #define   CONSOLE_Y_DIVISOR     1   /* fractional screen, 1 is full */
 #define   CONSOLE_X_ORIENTATION 0   /* in number of characters */
-#define   CONSOLE_Y_ORIENTATION 10  /* in number of lines */
+//#define   CONSOLE_Y_ORIENTATION 10  /* in number of lines */
+#define   CONSOLE_Y_ORIENTATION 0  /* in number of lines */
 #define ENABLE_USB         TRUE  /* enable USB host */
 #define ENABLE_XMODEM      TRUE  /* enable xmodem */
 #define ENABLE_BOOTLOADER  FALSE /* enable boot loader */
