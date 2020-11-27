@@ -66,22 +66,22 @@ static char KeyIn;
 
 unsigned int usbKbdCheck(void)
 {
-  return KeyIn;
+	return KeyIn;
 }
 
 char usbKbdGetc(void)
 {
-  char key = KeyIn;
-  putchar(key);
+	char key = KeyIn;
+	putchar(key);
 
-  KeyIn = 0;
-  return key;
+	KeyIn = 0;
+	return key;
 }
 
 void KeyPressedHandler(const char ascii)
 {
-  KeyIn = ascii;
-  putchar(KeyIn);
+	KeyIn = ascii;
+	putchar(KeyIn);
 }
 
 void custom_flush()
@@ -93,22 +93,22 @@ void custom_flush()
 #if ENABLE_USB
 int UsbHostStart(char *command)
 {
-  if (!UsbUp)
-  {
-    RequestInit();
-    DeviceInit();
+	if (!UsbUp)
+	{
+		RequestInit();
+		DeviceInit();
 
-    if (!HostEnable())
-    {
-      puts("Cannot initialize USB host controller interface");
-      return TASK_FINISHED;
-    }
-    UsbUp = TRUE;
-  }
-  else
-    puts("USB host already initialized");
+		if (!HostEnable())
+		{
+			puts("Cannot initialize USB host controller interface");
+			return TASK_FINISHED;
+		}
+		UsbUp = TRUE;
+	}
+	else
+		puts("USB host already initialized");
 
-  return TASK_FINISHED;
+	return TASK_FINISHED;
 }
 
 #endif /* ENABLE_USB */
@@ -122,21 +122,21 @@ _Noreturn void a(int count)
 
 int myinit(const char *command)
 {
-  if (ScreenUp)
-  {
-    StdioState = &ConsoleState;
-    ScreenClear();
+	if (ScreenUp)
+	{
+		StdioState = &ConsoleState;
+		ScreenClear();
 
-    puts("\nAdventure awaits! 2");
-    volatile int count = 0;
-    if(setjmp(jump_buffer) != 5) {
-	    a(++count);
-    }
-  }
-  else
-    puts("Video screen not initialized");
+		puts("\nAdventure awaits! 2");
+		volatile int count = 0;
+		if(setjmp(jump_buffer) != 5) {
+			a(++count);
+		}
+	}
+	else
+		puts("Video screen not initialized");
 
-  return TASK_FINISHED;
+	return TASK_FINISHED;
 }
 
 jmp_buf jump_buffer;
@@ -175,84 +175,84 @@ int letsgo_task(const char *command)
 /*...................................................................*/
 int main(void)
 {
-  // Initialize hardware peripheral configuration
-  NetUp = UsbUp = ScreenUp = FALSE;
+	// Initialize hardware peripheral configuration
+	NetUp = UsbUp = ScreenUp = FALSE;
 
-  bzero(&ConsoleState, sizeof(ConsoleState));
-  Console(&ConsoleState);
-  ConsoleState.flush = custom_flush;
-  ConsoleState.getc = usbKbdGetc;
-  ConsoleState.check = usbKbdCheck;
-  StdioState = &ConsoleState;
+	bzero(&ConsoleState, sizeof(ConsoleState));
+	Console(&ConsoleState);
+	ConsoleState.flush = custom_flush;
+	ConsoleState.getc = usbKbdGetc;
+	ConsoleState.check = usbKbdCheck;
+	StdioState = &ConsoleState;
 
-  /* Initialize the base software interface to the hardware. */
-  BoardInit();
+	/* Initialize the base software interface to the hardware. */
+	BoardInit();
 
 #if ENABLE_OS
-  // Initialize the Operating System (OS) and create system tasks
-  OsInit();
+	// Initialize the Operating System (OS) and create system tasks
+	OsInit();
 
 
 #if 0
 #if ENABLE_UART0
-  StdioState = &Uart0State;
-  TaskNew(0, ShellPoll, &Uart0State);
+	StdioState = &Uart0State;
+	TaskNew(0, ShellPoll, &Uart0State);
 #elif ENABLE_UART1
-  StdioState = &Uart1State;
-  TaskNew(0, ShellPoll, &Uart1State);
+	StdioState = &Uart1State;
+	TaskNew(0, ShellPoll, &Uart1State);
 #endif
 #endif
 
-  //KeyboardUp(NULL); // doesn't seem to help
+	//KeyboardUp(NULL); // doesn't seem to help
 
-  //ConsoleEnableKeyboard();  // seems to actually cause a crash
-  // Initialize the timer and LED tasks
-  TaskNew(1, TimerPoll, &TimerStart);
-  TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
+	//ConsoleEnableKeyboard();  // seems to actually cause a crash
+	// Initialize the timer and LED tasks
+	TaskNew(1, TimerPoll, &TimerStart);
+	TaskNew(MAX_TASKS - 1, LedPoll, &LedState);
 #endif /* ENABLE_OS */
 
-  void* mem = malloc(10); // just a test - seems to work, too
-  *(char*)  mem = 0;
+	void* mem = malloc(10); // just a test - seems to work, too
+	*(char*)  mem = 0;
 
-  // Initialize user devices
+	// Initialize user devices
 
 #if ENABLE_AUTO_START
 #if ENABLE_VIDEO
-  /* Initialize screen and console. */
-  ScreenInit();
-  ScreenUp = TRUE;
+	/* Initialize screen and console. */
+	ScreenInit();
+	ScreenUp = TRUE;
 
 #endif
 #if ENABLE_USB
-  UsbHostStart(NULL);
+	UsbHostStart(NULL);
 #endif
 #endif
 
-  /* display the introductory splash */
-  puts("Game application");
-  putu32(OgSp);
-  puts(" : stack pointer");
+	/* display the introductory splash */
+	puts("Game application");
+	putu32(OgSp);
+	puts(" : stack pointer");
 
-  //GameStart(0);
-  myinit(0);
+	//GameStart(0);
+	myinit(0);
 
-  if(0) sd_test(); // surpess for now
-  //TaskNew(0, KeyboardUp, 0);
-  puts("Guess we're about ready to go 1");
+	if(0) sd_test(); // surpess for now
+	//TaskNew(0, KeyboardUp, 0);
+	puts("Guess we're about ready to go 1");
 
 
-  TaskNew(100, letsgo_task, 0);
+	TaskNew(100, letsgo_task, 0);
 #if ENABLE_OS
-  /* run the non-interruptive priority loop scheduler */
-  OsStart();
+	/* run the non-interruptive priority loop scheduler */
+	OsStart();
 #elif ENABLE_SHELL
-  SystemShell();
+	SystemShell();
 #else
-  puts("Press any key to exit application");
-  uart0_getc();
+	puts("Press any key to exit application");
+	uart0_getc();
 #endif
 
-  /* on OS exit say goodbye (never gets here...)*/
-  puts("Goodbye");
-  return 0;
+	/* on OS exit say goodbye (never gets here...)*/
+	puts("Goodbye");
+	return 0;
 }
