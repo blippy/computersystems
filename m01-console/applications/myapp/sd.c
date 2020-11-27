@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include "gpio.h"
 //#include "uart.h"
-//#include "delays.h"
+#include "delays.h"
 #include "sd.h"
 
 void uart_puts(char* str)
@@ -140,7 +140,8 @@ void uart_hex(unsigned int d) {
 #define ACMD41_CMD_CCS      0x40000000
 #define ACMD41_ARG_HC       0x51ff8000
 
-unsigned long sd_scr[2], sd_ocr, sd_rca, sd_err, sd_hv;
+//unsigned long sd_scr[2], sd_ocr, sd_rca, sd_err, sd_hv;
+uint64_t sd_scr[2], sd_ocr, sd_rca, sd_err, sd_hv;
 
 /**
  * Wait for data or command ready
@@ -313,7 +314,8 @@ int sd_clk(unsigned int f)
  */
 int sd_init()
 {
-	long r,cnt,ccs=0;
+	//long r,cnt,ccs=0;
+	int64_t r,cnt,ccs=0;
 	// GPIO_CD
 	r=*GPFSEL4; r&=~(7<<(7*3)); *GPFSEL4=r;
 	*GPPUD=2; wait_cycles(150); *GPPUDCLK1=(1<<15); wait_cycles(150); *GPPUD=0; *GPPUDCLK1=0;
