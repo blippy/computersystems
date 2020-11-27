@@ -115,10 +115,11 @@ OBJS     = ../../boards/rpi/app.o \
           ../../network/core/udp.o \
           ../../network/netif/etharp.o \
           ../../network/netif/ethernetif.o \
-          denzi_data.o \
-          game_grid.o \
-          virtual_world.o \
           main.o
+
+#          denzi_data.o \
+#          game_grid.o \
+#          virtual_world.o \
 
 OBJS += ../../system/setjmp.o
 OBJS += sd.o

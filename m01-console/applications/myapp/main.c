@@ -210,6 +210,7 @@ int main(void)
   myinit(0);
 
   sd_test();
+  puts("Guess we're about ready to go");
 
 #if ENABLE_OS
   /* run the non-interruptive priority loop scheduler */
