@@ -168,12 +168,14 @@ int main(void)
   // Initialize the Operating System (OS) and create system tasks
   OsInit();
 
+#if 1
 #if ENABLE_UART0
   StdioState = &Uart0State;
   TaskNew(0, ShellPoll, &Uart0State);
 #elif ENABLE_UART1
   StdioState = &Uart1State;
   TaskNew(0, ShellPoll, &Uart1State);
+#endif
 #endif
 
   // Initialize the timer and LED tasks

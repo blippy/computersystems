@@ -416,6 +416,23 @@ int ShellPoll(void *data)
   struct shell_state *state = data;
   struct shell_state *std;
 
+// added by mcarter 2020-11-27
+  /* If capable and character availble then read it. */
+  if (state->check && state->check())
+  {
+    /* Read the character and echo it back to the sender. */
+char c = state->getc();
+if(c == '\b') {
+ state->putc(' ');
+      state->putc('\b');
+}
+state->putc(c);
+
+
+}
+return TASK_IDLE;
+
+
   /* Check if command is currently executing. */
   if (state->cmd)
   {
